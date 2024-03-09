@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.articlereply.article.command.controller;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -59,5 +60,13 @@ public class CommandArticleController {
         ResponseModifyArticle responseModifyArticle = new  ResponseModifyArticle();
         responseModifyArticle.setMessage(article.toString());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyArticle);
+    }
+
+    @GetMapping("/article/user/{articleId}")
+    public ResponseEntity<ResponseArticleUser> selectArticleUser(@PathVariable("articleId") int articleId){
+        ArticleDTO articleDTO = commandArticleService.selectArticleUser(articleId);
+
+        ResponseArticleUser returnValue = modelMapper.map(articleDTO, ResponseArticleUser.class);
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 }

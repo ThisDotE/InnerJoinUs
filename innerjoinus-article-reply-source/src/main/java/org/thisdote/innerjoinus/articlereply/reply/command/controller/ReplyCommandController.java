@@ -8,13 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.thisdote.innerjoinus.articlereply.reply.command.service.ReplyCommandService;
-import org.thisdote.innerjoinus.articlereply.reply.command.vo.RequestDeleteReply;
-import org.thisdote.innerjoinus.articlereply.reply.command.vo.RequestRegistReply;
-import org.thisdote.innerjoinus.articlereply.reply.command.vo.ResponseDeleteReply;
-import org.thisdote.innerjoinus.articlereply.reply.command.vo.ResponseRegistReply;
+import org.thisdote.innerjoinus.articlereply.reply.command.vo.*;
 import org.thisdote.innerjoinus.articlereply.reply.dto.ReplyDTO;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -65,6 +64,26 @@ public class ReplyCommandController {
         responseRegistReply.setReplyDeleteStatus(responseReplyDTO.getReplyDeleteStatus());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseRegistReply);
+    }
+
+    @PostMapping("/modify_reply")
+    public ResponseEntity<Map<String, Object>> modifyReply(@RequestBody RequestModifyReply modifyReply) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ReplyDTO replyDTO = modelMapper.map(modifyReply, ReplyDTO.class);
+
+        ReplyDTO returnedReplyDTO = replyCommandService.modifyReply(replyDTO);
+        System.out.println("returnedReplyDTO = " + returnedReplyDTO);
+        Map<String, Object> modifyResultResponse = new HashMap<>();
+
+        if (returnedReplyDTO == null) {
+            modifyResultResponse.put("message", "댓글 수정 실패");
+        } else {
+            modifyResultResponse.put("resultCode", 200);
+            modifyResultResponse.put("message", "댓글 수정 성공");
+            modifyResultResponse.put("result", modelMapper.map(returnedReplyDTO, ResponseModifyReply.class));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(modifyResultResponse);
     }
 
     @GetMapping("/delete_reply")
