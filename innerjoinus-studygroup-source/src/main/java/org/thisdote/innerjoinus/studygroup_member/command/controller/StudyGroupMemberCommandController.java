@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.studygroup_member.command.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class StudyGroupMemberCommandController {
 
     // 스터디원 추가하기 - regist(insert)
     @PostMapping("/studygroup/member/regist")
+    @Operation(summary = "스터디 그룹원 등록", description = "스터디 그룹원 등록 API")
     public ResponseEntity<ResponseRegistStudyGroupMember> registStudyGroupMember
                                                     (@RequestBody RequestRegistStudyGroupMember studyGroupMember) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -56,6 +58,7 @@ public class StudyGroupMemberCommandController {
 
     // 스터디원 수정하기 - modify(update)
     @PostMapping("/studygroup/member/modify")
+    @Operation(summary = "스터디 그룹원 수정", description = "스터디 그룹원 수정 API")
     public ResponseEntity<ResponseModifyStudyGroupMember> modifyStudyGroupMember (@RequestBody RequestModifyStudyGroupMember
                                                                                         modifyStudyGroupMember) {
         StudyGroupMemberDTO studyGroupMemberDTO = modelMapper.map(modifyStudyGroupMember, StudyGroupMemberDTO.class);
@@ -72,9 +75,11 @@ public class StudyGroupMemberCommandController {
 
     // 스터디원 삭제하기 - delete
     @GetMapping("/studygroup/member/delete")
+    @Operation(summary = "스터디 그룹원 삭제", description = "스터디 그룹원 삭제 API")
     public void deleteStudyGroupMember(){}
 
     @PostMapping("/studygroup/member/delete")
+    @Operation(summary = "스터디 그룹원 삭제", description = "스터디 그룹원 삭제 API")
     public ResponseEntity<ResponseDeleteStudyGroupMember> deleteStudyGroupMember (@RequestBody RequestDeleteStudyGroupMember
                                                                                               deleteStudyGroupMemberId) {
 //        StudyGroupMemberDTO studyGroupMemberDTO = modelMapper.map(deleteStudyGroupMemberId, StudyGroupMemberDTO.class);
@@ -88,6 +93,7 @@ public class StudyGroupMemberCommandController {
     }
 
     @GetMapping("/studygroupmember/user/{studyGroupMemberId}")
+    @Operation(summary = "스터디 그룹원 조회", description = "스터디 그룹원 ID 사용한 조회 API")
     public ResponseEntity<ResponseStudyGroupMemberUser> selectStudyGroupMemberUser(@PathVariable("studyGroupMemberId") int studyGroupMemberId) {
         StudyGroupMemberDTO studyGroupMemberDTO = studyGroupMemberCommandService.selectStudyGroupMemberUser(studyGroupMemberId);
 

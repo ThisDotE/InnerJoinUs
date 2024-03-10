@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.studygroup.command.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class StudyGroupCommandController {
 
     /* 필기. Insert */
     @PostMapping("/studygroup/insert")
+    @Operation(summary = "스터디 그룹 생성", description = "스터디 그룹 생성 API")
     public ResponseEntity<ResponseStudyGroup> registStudyGroup(@RequestBody RequestStudyGroup inputStudyGroup) {
 
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -51,6 +53,7 @@ public class StudyGroupCommandController {
 
     /* 필기. Update */
     @PostMapping("/studygroup/update")
+    @Operation(summary = "스터디 그룹 수정", description = "스터디 그룹 수정 API")
     public ResponseEntity<ResponseModifyStudyGroup>
                     modifyStudyGroup(@RequestBody RequestModifyStudyGroup modifyStudyGroup){
         StudyGroupCommandDTO studyGroupCommandDTO = mapper.map(modifyStudyGroup, StudyGroupCommandDTO.class);
@@ -64,6 +67,7 @@ public class StudyGroupCommandController {
     }
 
     @PostMapping("/studygroup/delete")
+    @Operation(summary = "스터디 그룹 삭제", description = "스터디 그룹 삭제 API")
     public ResponseEntity<ResponseDeleteStudyGroup>
                     deleteStudyGroup(@RequestBody RequestDeleteStudyGroup deleteStudyGroup) {
         StudyGroupCommandDTO studyGroupCommandDTO =mapper.map(deleteStudyGroup, StudyGroupCommandDTO.class);
