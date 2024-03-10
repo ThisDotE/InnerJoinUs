@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.user.command.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,24 +31,25 @@ public class UserCommandController {
         this.userCommandService = userCommandService;
     }
 
-    @PostMapping("/regist")
-    public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
-        UserDTO requestSignUpUser = mapper.map(user, UserDTO.class);
-        UserDTO returnedUser = userCommandService.registUser(requestSignUpUser);
-        Map<String, Object> registrationResultResponse = new HashMap<>();
-
-        if (returnedUser == null) {
-            registrationResultResponse.put("message", "회원 등록 실패");
-        } else {
-            registrationResultResponse.put("resultCode", 200);
-            registrationResultResponse.put("message", "회원 등록 성공");
-            registrationResultResponse.put("result", mapper.map(returnedUser, ResponseUser.class));
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(registrationResultResponse);
-    }
+//    @PostMapping("/regist")
+//    public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
+//        UserDTO requestSignUpUser = mapper.map(user, UserDTO.class);
+//        UserDTO returnedUser = userCommandService.registUser(requestSignUpUser);
+//        Map<String, Object> registrationResultResponse = new HashMap<>();
+//
+//        if (returnedUser == null) {
+//            registrationResultResponse.put("message", "회원 등록 실패");
+//        } else {
+//            registrationResultResponse.put("resultCode", 200);
+//            registrationResultResponse.put("message", "회원 등록 성공");
+//            registrationResultResponse.put("result", mapper.map(returnedUser, ResponseUser.class));
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(registrationResultResponse);
+//    }
 
     @PostMapping("/modify")
+    @Operation(summary = "회원 정보 수정", description = "회원 정보 수정 API")
     public ResponseEntity<Map<String, Object>> modifyUser(@RequestBody RequestUser user) {
         UserDTO userDTO = mapper.map(user, UserDTO.class);
 
@@ -61,6 +63,7 @@ public class UserCommandController {
     }
 
     @PostMapping("/delete")
+    @Operation(summary = "회원 탈퇴", description = "회원 탈퇴 처리 API")
     public ResponseEntity<Map<String, Object>> deleteUser(@RequestBody RequestUser user) {
         UserDTO userDTO = mapper.map(user, UserDTO.class);
 

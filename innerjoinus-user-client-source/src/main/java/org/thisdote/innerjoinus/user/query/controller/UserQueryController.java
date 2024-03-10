@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.user.query.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class UserQueryController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "회원 전체 조회", description = "등록된 회원 전체 조회 API")
     public ResponseEntity<List<ResponseUser>> getAllUser() {
         List<UserDTO> userList = userQueryService.selectAllUser();
         List<ResponseUser> responseUserList = new ArrayList<>();
@@ -43,6 +45,7 @@ public class UserQueryController {
     }
 
     @GetMapping("/code/{userCode}")
+    @Operation(summary = "회원 조회", description = "등록된 회원 CODE로 조회 API")
     public ResponseEntity<ResponseUser> getUserByUserCode(@PathVariable("userCode") Integer userCode) {
         UserDTO selectedUser = userQueryService.selectUserByUserCode(userCode);
         ResponseUser responseUser = new ResponseUser();
@@ -55,6 +58,7 @@ public class UserQueryController {
     }
 
     @GetMapping("/code/with_articles_and_replies/{userCode}")
+    @Operation(summary = "회원 및 해당 회원이 작성한 게시글, 댓글 조회", description = "회원 및 해당 회원이 작성한 게시글, 댓글 조회 API")
     public ResponseEntity<ResponseUserFeignArticlesAndReplies> getUserByUserCodeFeignArticlesAndReplies(@PathVariable("userCode") Integer userCode) {
         UserDTO userDTO = userQueryService.getUserByUserCodeFeignArticlesAndReplies(userCode);
 
@@ -64,6 +68,7 @@ public class UserQueryController {
     }
 
     @GetMapping("/id/{userId}")
+    @Operation(summary = "회원 조회", description = "등록된 회원 ID로 조회 API")
     public ResponseEntity<ResponseUser> getUserByUserId(@PathVariable("userId") String userId) {
         UserDTO selectedUser = userQueryService.selectUserByUserId(userId);
         ResponseUser responseUser = new ResponseUser();
@@ -76,6 +81,7 @@ public class UserQueryController {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "회원 등록", description = "회원 등록 API")
     public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
         System.out.println("user = " + user);
         UserDTO requestSignUpUser = mapper.map(user, UserDTO.class);
