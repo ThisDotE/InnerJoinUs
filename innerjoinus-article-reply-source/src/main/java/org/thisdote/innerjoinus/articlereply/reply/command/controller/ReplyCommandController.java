@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.articlereply.reply.command.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +20,17 @@ import java.util.Map;
 @RequestMapping("/")
 public class ReplyCommandController {
 
-    private final Environment env;
     private final ModelMapper modelMapper;
     private final ReplyCommandService replyCommandService;
 
     @Autowired
-    public ReplyCommandController(Environment env,
-                                  ModelMapper modelMapper,
-                                  ReplyCommandService replyCommandService) {
-        this.env = env;
+    public ReplyCommandController(ModelMapper modelMapper, ReplyCommandService replyCommandService) {
         this.modelMapper = modelMapper;
         this.replyCommandService = replyCommandService;
     }
 
-    /* 설명. health_check */
-    @GetMapping("/health_check")
-    public String status() {
-        return "Server at " + env.getProperty("local.server.port")
-                + ", swcamp.message: " + env.getProperty("swcamp.message");
-    }
-
-    @GetMapping("/regist_reply")
-    public void registReply() {
-    }
-
     @PostMapping("/regist_reply")
+    @Operation(summary = "댓글 등록", description = "댓글 등록 API")
     public ResponseEntity<ResponseRegistReply> registReply(@RequestBody RequestRegistReply inputReply) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -67,6 +54,7 @@ public class ReplyCommandController {
     }
 
     @PostMapping("/modify_reply")
+    @Operation(summary = "댓글 수정", description = "댓글 수정 API")
     public ResponseEntity<Map<String, Object>> modifyReply(@RequestBody RequestModifyReply modifyReply) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ReplyDTO replyDTO = modelMapper.map(modifyReply, ReplyDTO.class);
@@ -86,10 +74,8 @@ public class ReplyCommandController {
         return ResponseEntity.status(HttpStatus.OK).body(modifyResultResponse);
     }
 
-    @GetMapping("/delete_reply")
-    public void deleteReply(){}
-
     @PostMapping("/delete_reply")
+    @Operation(summary = "댓글 삭제", description = "댓글 삭제 API")
     public ResponseEntity<ResponseDeleteReply> deleteReply(@RequestBody RequestDeleteReply deleteReply) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

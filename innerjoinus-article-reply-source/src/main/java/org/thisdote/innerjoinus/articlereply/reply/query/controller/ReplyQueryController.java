@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.articlereply.reply.query.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class ReplyQueryController {
     }
 
     @GetMapping("/select_all")
+    @Operation(summary = "댓글 전체 조회", description = "댓글 전체 조회 API")
     public ResponseEntity<List<ResponseSelectAllReply>> selectAllReply() {
         List<ReplyDTO> replyDTOList = replyQueryService.findAllReply();
         List<ResponseSelectAllReply> responseList = replyDTOToResponseSelectAllReply(replyDTOList);
@@ -40,6 +42,7 @@ public class ReplyQueryController {
     }
 
     @GetMapping("/select_by_user/{userCode}")
+    @Operation(summary = "회원 별 댓글 전체 조회", description = "회원 별 댓글 전체 조회 API")
     public ResponseEntity<List<ResponseSelectReplyByUser>> selectReplyByUser(@PathVariable("userCode") int user_code) {
         List<ReplyDTO> replyDTOList = replyQueryService.selectReplyByUser(user_code);
         List<ResponseSelectReplyByUser> responseList = new ArrayList<>();
@@ -52,6 +55,7 @@ public class ReplyQueryController {
     }
 
     @GetMapping("/select/with_user_info/{replyId}")
+    @Operation(summary = "회원 정보를 포함한 댓글 조회", description = "회원 정보를 포함한 댓글 조회 API")
     public ResponseEntity<ResponseSelectReplyByReplyIdFeignUser> selectReplyByReplyIdFeignUser(@PathVariable("replyId") int replyId) {
         ReplyDTO replyDTO = replyQueryService.selectReplyByReplyIdFeignUser(replyId);
 
@@ -60,6 +64,7 @@ public class ReplyQueryController {
     }
 
     @GetMapping("/select/{replyId}")
+    @Operation(summary = "댓글 조회", description = "댓글 ID를 사용한 조회 API")
     public ResponseEntity<ResponseSelectReplyByReplyId> selectReplyByReplyId(@PathVariable("replyId") int replyId) {
         ReplyDTO replyDTO = replyQueryService.selectReplyByReplyId(replyId);
 
