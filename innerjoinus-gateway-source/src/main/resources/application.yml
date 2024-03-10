@@ -32,5 +32,32 @@ spring:
           uri: lb://INNERJOINUS-USER
           predicates:
             - Path=/user/**
+#            - Method=GET
           filters:
             - RewritePath=/user/(?<segment>.*), /$\{segment}
+#            - AuthorizationHeaderFilter
+
+        - id: user
+          uri: lb://INNERJOINUS-USER
+          predicates:
+            - Path=/user/create
+            - Method=POST
+          filters:
+            - RewritePath=/user/(?<segment>.*), /$\{segment}
+
+        - id: user
+          uri: lb://INNERJOINUS-USER
+          predicates:
+            - Path=/user/login
+          filters:
+            - RewritePath=/user/(?<segment>.*), /$\{segment}
+
+#        - id: user
+#          uri: lb://INNERJOINUS-USER
+#          predicates:
+#            - Path=/user/**
+#          filters:
+#            - RewritePath=/user/(?<segment>.*), /$\{segment}
+
+token:
+  secret: l1Z5I9WufSD5qM0UTHXDJa1kaGxBlyhKMbx+ONkqzeRTlKdF8Bq37mA3Z8nhjRlwVUrL/u3bdkFeamIrUoWvVw==

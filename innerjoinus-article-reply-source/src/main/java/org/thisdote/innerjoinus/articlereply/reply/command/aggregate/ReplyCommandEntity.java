@@ -13,8 +13,6 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-
-@Alias(value = "RCE")
 public class ReplyCommandEntity {
 
     @Id

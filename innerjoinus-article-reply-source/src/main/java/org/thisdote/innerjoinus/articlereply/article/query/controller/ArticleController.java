@@ -2,6 +2,7 @@ package org.thisdote.innerjoinus.articlereply.article.query.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,15 @@ public class ArticleController {
         List<ArticleDTO> articleDTOList = articleService.selectAllArticle();
         List<ResponseArticle> returnValue = articleDTOToTesponseOrder(articleDTOList);
 
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
+
+    @GetMapping("/select/{articleId}")
+    public ResponseEntity<ResponseArticle> selectArticleByArticleId(@PathVariable("articleId") int articleId) {
+        ArticleDTO articleDTO = articleService.selectArticleByArticleId(articleId);
+
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ResponseArticle returnValue = mapper.map(articleDTO, ResponseArticle.class);
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 

@@ -7,4 +7,7 @@ import org.thisdote.innerjoinus.user.command.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
+    UserEntity findByUserId(String userId);
+
+    UserEntity findByUserEmail(String email);
 }

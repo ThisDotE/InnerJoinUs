@@ -15,4 +15,6 @@ public interface UserMapper {
     UserDTO selectUserByUserCode(int userCode);
 
     List<UserDTO> selectUsersByResignStatus(int resignStatus);
+
+    UserDTO selectUserByUserId(String userId);
 }

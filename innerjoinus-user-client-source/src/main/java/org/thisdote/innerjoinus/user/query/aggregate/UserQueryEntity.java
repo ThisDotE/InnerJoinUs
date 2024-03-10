@@ -1,4 +1,4 @@
-package org.thisdote.innerjoinus.user.command.entity;
+package org.thisdote.innerjoinus.user.query.aggregate;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,8 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class UserEntity {
-
+public class UserQueryEntity {
     @Id
     @Column(name = "user_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -15,15 +15,12 @@ import org.thisdote.innerjoinus.studygroup_member.dto.StudyGroupMemberDTO;
 @RequestMapping("/")
 public class StudyGroupMemberCommandController {
 
-    private Environment env;
-    private ModelMapper modelMapper;
-    private StudyGroupMemberCommandService studyGroupMemberCommandService;
+    private final ModelMapper modelMapper;
+    private final StudyGroupMemberCommandService studyGroupMemberCommandService;
 
     @Autowired
-    public StudyGroupMemberCommandController(Environment env,
-                                             ModelMapper modelMapper,
+    public StudyGroupMemberCommandController(ModelMapper modelMapper,
                                              StudyGroupMemberCommandService studyGroupMemberCommandService) {
-        this.env = env;
         this.modelMapper = modelMapper;
         this.studyGroupMemberCommandService = studyGroupMemberCommandService;
     }
@@ -88,5 +85,13 @@ public class StudyGroupMemberCommandController {
         responseDeleteStudyGroupMember.setMessage(message);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDeleteStudyGroupMember);
+    }
+
+    @GetMapping("/studygroupmember/user/{studyGroupMemberId}")
+    public ResponseEntity<ResponseStudyGroupMemberUser> selectStudyGroupMemberUser(@PathVariable("studyGroupMemberId") int studyGroupMemberId) {
+        StudyGroupMemberDTO studyGroupMemberDTO = studyGroupMemberCommandService.selectStudyGroupMemberUser(studyGroupMemberId);
+
+        ResponseStudyGroupMemberUser returnValue = modelMapper.map(studyGroupMemberDTO, ResponseStudyGroupMemberUser.class);
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 }

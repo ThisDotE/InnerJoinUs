@@ -69,7 +69,8 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ArticleDTO articleDTO = mapper.map(article, ArticleDTO.class);
 
-        List<ResponseUser> userList = userClient.getAllUser(articleDTO.getUserCode());
+//        List<ResponseUser> userList = userClient.getAllUser(articleDTO.getUserCode());
+        ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());
         articleDTO.setUserList(userList);
         return articleDTO;
     }

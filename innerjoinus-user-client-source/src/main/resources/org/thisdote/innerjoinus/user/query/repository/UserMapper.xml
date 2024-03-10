@@ -62,7 +62,7 @@
          WHERE USER_RESIGN_STATUS = #{resignStatus}
     </select>
 
-    <select id="selectUserId" resultMap="userResultMap" parameterType="String">
+    <select id="selectUserByUserId" resultMap="userResultMap" parameterType="string">
         SELECT
                A.USER_CODE
              , A.USER_ID

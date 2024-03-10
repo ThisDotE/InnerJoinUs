@@ -14,6 +14,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 @Component
@@ -29,11 +30,67 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     public static class Config {
 
-
     }
+
     @Override
     public GatewayFilter apply(Config config) {
-        return null;
+        return (exchange, chain) -> {
+            ServerHttpRequest request = exchange.getRequest();
+
+            if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                return onError(exchange, "Authorization 헤더 부재", HttpStatus.UNAUTHORIZED);
+            }
+
+            HttpHeaders headers = request.getHeaders();
+            Set<String> keys = headers.keySet();
+            Iterator<String> iterator = keys.iterator();
+
+            while (iterator.hasNext()) {
+                log.info(iterator.next());
+            }
+
+            String authorizationHeader = Objects.requireNonNull(request.getHeaders().get(HttpHeaders.AUTHORIZATION)).get(0);
+            String jwt = authorizationHeader.replace("Bearer ", "");
+            log.info("JWT: " + jwt);
+
+            if (!isJwtValid(jwt)) {
+                return onError(exchange, "토큰이 유효하지 않음", HttpStatus.UNAUTHORIZED);
+            }
+
+            return chain.filter(exchange);
+        };
+    }
+
+    private boolean isJwtValid(String jwt) {
+        boolean flag = true;
+
+        String subject = null;
+
+        try {
+            subject = Jwts
+                    .parser()
+                    .setSigningKey(env.getProperty("token.secret"))
+                    .parseClaimsJws(jwt).getBody()
+                    .getSubject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            flag = false;
+        }
+
+        if (subject == null || subject.isEmpty()) {
+            flag = false;
+        }
+
+        log.info("flag: " + flag);
+
+        return flag;
+    }
+
+    private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
+        ServerHttpResponse response = exchange.getResponse();
+        response.setStatusCode(httpStatus);
+
+        return response.setComplete();
     }
 
 }

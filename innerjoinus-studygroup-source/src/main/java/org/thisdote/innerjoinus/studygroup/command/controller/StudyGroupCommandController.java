@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.thisdote.innerjoinus.studygroup.command.service.StudyGroupCommandService;
 import org.thisdote.innerjoinus.studygroup.command.vo.*;
 import org.thisdote.innerjoinus.studygroup.dto.StudyGroupCommandDTO;
+import org.thisdote.innerjoinus.studygroup_member.command.service.StudyGroupMemberCommandService;
+import org.thisdote.innerjoinus.studygroup_member.dto.StudyGroupMemberDTO;
 
 @RestController
 @RequestMapping("/")
@@ -72,4 +74,12 @@ public class StudyGroupCommandController {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDeleteStudyGroup);
     }
+
+//    @GetMapping("/studygroup-member/user/{}")
+//    public ResponseEntity<ResponseStudyGroupMemberUser> selectStudyGroupMemberUser(@PathVariable("studygroupMemberId") int studygroupMemberId) {
+//        StudyGroupMemberDTO studyGroupMemberDTO = StudyGroupMemberCommandService.selectStudyGroupMemberUser(studygroupMemberId);
+//
+//        ResponseStudyGroupMemberUser returnValue = mapper.map(studyGroupMemberDTO, ResponseStudyGroupMemberUser.class);
+//        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+//    }
 }

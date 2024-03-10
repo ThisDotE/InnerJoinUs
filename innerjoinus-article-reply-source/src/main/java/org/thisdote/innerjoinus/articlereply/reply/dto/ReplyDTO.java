@@ -1,6 +1,7 @@
 package org.thisdote.innerjoinus.articlereply.reply.dto;
 
 import lombok.Data;
+import org.thisdote.innerjoinus.articlereply.article.command.vo.ResponseUser;
 
 import java.util.Date;
 
@@ -16,6 +17,7 @@ public class ReplyDTO {
     private int userCode;               // fk..
     private int articleId;              // fk..
     private int replyDeleteStatus;
+    private ResponseUser responseUser;
 
 //    public ReplyDTO() {
 //    }

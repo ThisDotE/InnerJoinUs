@@ -1,7 +1,6 @@
-package org.thisdote.innerjoinus.studygroup_member.dto;
+package org.thisdote.innerjoinus.studygroup_member.command.vo;
 
 import lombok.*;
-import org.thisdote.innerjoinus.studygroup_member.command.vo.ResponseUser;
 
 import java.util.Date;
 
@@ -10,10 +9,10 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
-public class StudyGroupMemberDTO {
+public class ResponseStudyGroupMemberUser {
     private int studyGroupMemberId;
     private int studyGroupId;
-    private int studyGroupRole;     // 0 - 스터디원, 1 - 스터디장
+    private int studyGroupRole;
     private Date studyGroupRegistDate;
     private int userCode;
     private ResponseUser userList;

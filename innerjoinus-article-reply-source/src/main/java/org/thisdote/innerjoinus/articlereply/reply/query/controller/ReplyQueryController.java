@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thisdote.innerjoinus.articlereply.reply.dto.ReplyDTO;
 import org.thisdote.innerjoinus.articlereply.reply.query.service.ReplyQueryService;
 import org.thisdote.innerjoinus.articlereply.reply.query.vo.ResponseSelectAllReply;
+import org.thisdote.innerjoinus.articlereply.reply.query.vo.ResponseSelectReplyByReplyId;
+import org.thisdote.innerjoinus.articlereply.reply.query.vo.ResponseSelectReplyByReplyIdFeignUser;
 import org.thisdote.innerjoinus.articlereply.reply.query.vo.ResponseSelectReplyByUser;
 
 import java.util.ArrayList;
@@ -37,8 +39,8 @@ public class ReplyQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
-    @GetMapping("/select_by_user/{user_code}")
-    public ResponseEntity<List<ResponseSelectReplyByUser>> selectReplyByUser(@PathVariable("user_code") int user_code) {
+    @GetMapping("/select_by_user/{userCode}")
+    public ResponseEntity<List<ResponseSelectReplyByUser>> selectReplyByUser(@PathVariable("userCode") int user_code) {
         List<ReplyDTO> replyDTOList = replyQueryService.selectReplyByUser(user_code);
         List<ResponseSelectReplyByUser> responseList = new ArrayList<>();
 
@@ -47,6 +49,22 @@ public class ReplyQueryController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
+    }
+
+    @GetMapping("/select/with_user_info/{replyId}")
+    public ResponseEntity<ResponseSelectReplyByReplyIdFeignUser> selectReplyByReplyIdFeignUser(@PathVariable("replyId") int replyId) {
+        ReplyDTO replyDTO = replyQueryService.selectReplyByReplyIdFeignUser(replyId);
+
+        ResponseSelectReplyByReplyIdFeignUser returnValue = mapper.map(replyDTO, ResponseSelectReplyByReplyIdFeignUser.class);
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
+
+    @GetMapping("/select/{replyId}")
+    public ResponseEntity<ResponseSelectReplyByReplyId> selectReplyByReplyId(@PathVariable("replyId") int replyId) {
+        ReplyDTO replyDTO = replyQueryService.selectReplyByReplyId(replyId);
+
+        ResponseSelectReplyByReplyId returnValue = mapper.map(replyDTO, ResponseSelectReplyByReplyId.class);
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
     private List<ResponseSelectAllReply> replyDTOToResponseSelectAllReply(List<ReplyDTO> replyDTOList) {

@@ -28,5 +28,6 @@ public class ArticleDTO {
     private int studygroupPendingMemberCount;
     private int articleDeleteStatus;
     private List<ReplyDTO> replyDTOList;
-    private List<ResponseUser> userList;
+//    private List<ResponseUser> userList;
+    private ResponseUser userList;
 }
