@@ -11,9 +11,9 @@ import java.util.List;
 @FeignClient(name = "INNERJOINUS-ARTICLEREPLY", url = "localhost:8000")
 public interface ArticleReplyServiceClient {
 
-    @GetMapping("/article-reply/reply/select_by_user/{userCode}")
+    @GetMapping("/article-reply/reply/user/{userCode}")
     List<ResponseReply> getAllReply(@PathVariable("userCode") Integer userCode);
 
-    @GetMapping("/article-reply/select/article/{userCode}")
+    @GetMapping("/article-reply/article/user/{userCode}")
     List<ResponseArticle> getAllArticle(@PathVariable("userCode") Integer userCode);
 }

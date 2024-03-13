@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reply")
+@RequestMapping("/")
 public class ReplyQueryController {
 
     private final ReplyQueryService replyQueryService;
@@ -31,7 +31,7 @@ public class ReplyQueryController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/select_all")
+    @GetMapping("/reply")
     public ResponseEntity<List<ResponseSelectAllReply>> selectAllReply() {
         List<ReplyDTO> replyDTOList = replyQueryService.findAllReply();
         List<ResponseSelectAllReply> responseList = replyDTOToResponseSelectAllReply(replyDTOList);
@@ -39,7 +39,7 @@ public class ReplyQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
-    @GetMapping("/select_by_user/{userCode}")
+    @GetMapping("/reply/user/{userCode}")
     public ResponseEntity<List<ResponseSelectReplyByUser>> selectReplyByUser(@PathVariable("userCode") int user_code) {
         List<ReplyDTO> replyDTOList = replyQueryService.selectReplyByUser(user_code);
         List<ResponseSelectReplyByUser> responseList = new ArrayList<>();
@@ -51,7 +51,7 @@ public class ReplyQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
-    @GetMapping("/select/with_user_info/{replyId}")
+    @GetMapping("/reply/with_user_info/{replyId}")
     public ResponseEntity<ResponseSelectReplyByReplyIdFeignUser> selectReplyByReplyIdFeignUser(@PathVariable("replyId") int replyId) {
         ReplyDTO replyDTO = replyQueryService.selectReplyByReplyIdFeignUser(replyId);
 
@@ -59,7 +59,7 @@ public class ReplyQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/{replyId}")
+    @GetMapping("/reply/{replyId}")
     public ResponseEntity<ResponseSelectReplyByReplyId> selectReplyByReplyId(@PathVariable("replyId") int replyId) {
         ReplyDTO replyDTO = replyQueryService.selectReplyByReplyId(replyId);
 

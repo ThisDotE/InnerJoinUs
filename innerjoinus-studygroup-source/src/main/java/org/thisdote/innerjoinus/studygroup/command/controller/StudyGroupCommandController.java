@@ -26,7 +26,7 @@ public class StudyGroupCommandController {
     }
 
     /* 필기. Insert */
-    @PostMapping("/studygroup/insert")
+    @PostMapping("/studygroup")
     public ResponseEntity<ResponseStudyGroup> registStudyGroup(@RequestBody RequestStudyGroup inputStudyGroup) {
 
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -50,7 +50,7 @@ public class StudyGroupCommandController {
     }
 
     /* 필기. Update */
-    @PostMapping("/studygroup/update")
+    @PutMapping("/studygroup")
     public ResponseEntity<ResponseModifyStudyGroup>
                     modifyStudyGroup(@RequestBody RequestModifyStudyGroup modifyStudyGroup){
         StudyGroupCommandDTO studyGroupCommandDTO = mapper.map(modifyStudyGroup, StudyGroupCommandDTO.class);
@@ -63,10 +63,10 @@ public class StudyGroupCommandController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyStudyGroup);
     }
 
-    @PostMapping("/studygroup/delete")
+    @DeleteMapping("/studygroup")
     public ResponseEntity<ResponseDeleteStudyGroup>
                     deleteStudyGroup(@RequestBody RequestDeleteStudyGroup deleteStudyGroup) {
-        StudyGroupCommandDTO studyGroupCommandDTO =mapper.map(deleteStudyGroup, StudyGroupCommandDTO.class);
+        StudyGroupCommandDTO studyGroupCommandDTO = mapper.map(deleteStudyGroup, StudyGroupCommandDTO.class);
         System.out.println("studyGroupCommandDTO = " + studyGroupCommandDTO);
         studyGroupCommandService.removeStudyGroup(studyGroupCommandDTO);
 
