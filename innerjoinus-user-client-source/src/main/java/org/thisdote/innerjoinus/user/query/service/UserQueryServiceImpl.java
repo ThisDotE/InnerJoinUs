@@ -98,8 +98,11 @@ public class UserQueryServiceImpl implements UserQueryService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserDTO userDTO = modelMapper.map(userQueryEntity, UserDTO.class);
 
+        // FeignClient 사용하여 해당 사용자의 모든 게시글 정보 불러오기
         List<ResponseArticle> responseArticleList = articleReplyServiceClient.getAllArticle(userCode);
         userDTO.setArticleList(responseArticleList);
+
+        // FeignClient 사용하여 해당 사용자의 모든 댓글 정보 불러오기
         List<ResponseReply> responseReplyList = articleReplyServiceClient.getAllReply(userCode);
         userDTO.setReplyList(responseReplyList);
 

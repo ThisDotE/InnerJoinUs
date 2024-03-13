@@ -1,7 +1,7 @@
 package org.thisdote.innerjoinus.articlereply.article.command.aggregate;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
@@ -47,4 +47,39 @@ public class ArticleEntity {
     private Integer studygroupPendingMemberCount;
     @Column(name = "article_delete_status")
     private Integer articleDeleteStatus;
+
+    public ArticleEntity() {
+
+    }
+
+    @Builder
+
+    public ArticleEntity(Integer articleId, String articleTitle
+            , String articleContent, Integer articleCategory
+            , Date articleCreateDate, Date articleLastUpdateDate
+            , Integer articleViewCount, Integer articleLikeCount
+            , Integer articleReplyCount, Integer articleReportStatus
+            , Integer studygroupMemberMaxCount, Date studygroupRecruitmentDeadline
+            , Integer articleQuestionCategory, Integer userCode, Integer studygroupId
+            , Integer studygroupCurrentMemberCount, Integer studygroupPendingMemberCount
+            , Integer articleDeleteStatus) {
+        this.articleId = articleId;
+        this.articleTitle = articleTitle;
+        this.articleContent = articleContent;
+        this.articleCategory = articleCategory;
+        this.articleCreateDate = articleCreateDate;
+        this.articleLastUpdateDate = articleLastUpdateDate;
+        this.articleViewCount = articleViewCount;
+        this.articleLikeCount = articleLikeCount;
+        this.articleReplyCount = articleReplyCount;
+        this.articleReportStatus = articleReportStatus;
+        this.studygroupMemberMaxCount = studygroupMemberMaxCount;
+        this.studygroupRecruitmentDeadline = studygroupRecruitmentDeadline;
+        this.articleQuestionCategory = articleQuestionCategory;
+        this.userCode = userCode;
+        this.studygroupId = studygroupId;
+        this.studygroupCurrentMemberCount = studygroupCurrentMemberCount;
+        this.studygroupPendingMemberCount = studygroupPendingMemberCount;
+        this.articleDeleteStatus = articleDeleteStatus;
+    }
 }

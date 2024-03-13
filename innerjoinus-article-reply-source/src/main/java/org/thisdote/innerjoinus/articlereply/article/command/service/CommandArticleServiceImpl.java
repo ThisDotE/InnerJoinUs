@@ -1,5 +1,6 @@
 package org.thisdote.innerjoinus.articlereply.article.command.service;
 
+import lombok.Builder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,27 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     public ArticleDTO registArticle(ArticleDTO newArticle){
         newArticle.setArticleCreateDate(new Date());
         newArticle.setArticleLastUpdateDate(new Date());
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        commandArticleRepository.save(mapper.map(newArticle, ArticleEntity.class));
+        commandArticleRepository.save(ArticleEntity.builder().articleId(newArticle.getArticleId())
+                .articleTitle(newArticle.getArticleTitle())
+                .articleContent(newArticle.getArticleContent())
+                .articleCategory(newArticle.getArticleCategory())
+                .articleCreateDate(newArticle.getArticleCreateDate())
+                .articleLastUpdateDate(newArticle.getArticleLastUpdateDate())
+                .articleViewCount(newArticle.getArticleViewCount())
+                .articleLikeCount(newArticle.getArticleLikeCount())
+                .articleReplyCount(newArticle.getArticleReplyCount())
+                .articleReportStatus(newArticle.getArticleReportStatus())
+                .studygroupMemberMaxCount(newArticle.getStudygroupMemberMaxCount())
+                .studygroupRecruitmentDeadline(newArticle.getStudygroupRecruitmentDeadline())
+                .articleQuestionCategory(newArticle.getArticleCategory())
+                .userCode(newArticle.getUserCode())
+                .studygroupId(newArticle.getStudygroupId())
+                .studygroupCurrentMemberCount(newArticle.getStudygroupCurrentMemberCount())
+                .studygroupPendingMemberCount(newArticle.getStudygroupPendingMemberCount())
+                .articleDeleteStatus(newArticle.getArticleDeleteStatus())
+                .build());
 
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper.map(newArticle, ArticleDTO.class);
     }
 
