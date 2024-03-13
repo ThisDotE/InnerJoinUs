@@ -32,18 +32,7 @@ public class ReplyCommandController {
         this.replyCommandService = replyCommandService;
     }
 
-    /* 설명. health_check */
-    @GetMapping("/health_check")
-    public String status() {
-        return "Server at " + env.getProperty("local.server.port")
-                + ", swcamp.message: " + env.getProperty("swcamp.message");
-    }
-
-    @GetMapping("/regist_reply")
-    public void registReply() {
-    }
-
-    @PostMapping("/regist_reply")
+    @PostMapping("/reply")
     public ResponseEntity<ResponseRegistReply> registReply(@RequestBody RequestRegistReply inputReply) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -66,7 +55,7 @@ public class ReplyCommandController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseRegistReply);
     }
 
-    @PostMapping("/modify_reply")
+    @PutMapping("/reply")
     public ResponseEntity<Map<String, Object>> modifyReply(@RequestBody RequestModifyReply modifyReply) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ReplyDTO replyDTO = modelMapper.map(modifyReply, ReplyDTO.class);
@@ -86,10 +75,7 @@ public class ReplyCommandController {
         return ResponseEntity.status(HttpStatus.OK).body(modifyResultResponse);
     }
 
-    @GetMapping("/delete_reply")
-    public void deleteReply(){}
-
-    @PostMapping("/delete_reply")
+    @DeleteMapping("/reply")
     public ResponseEntity<ResponseDeleteReply> deleteReply(@RequestBody RequestDeleteReply deleteReply) {
 
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

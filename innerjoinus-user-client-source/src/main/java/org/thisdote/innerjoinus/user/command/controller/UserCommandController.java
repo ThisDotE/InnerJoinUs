@@ -30,24 +30,7 @@ public class UserCommandController {
         this.userCommandService = userCommandService;
     }
 
-    @PostMapping("/regist")
-    public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
-        UserDTO requestSignUpUser = mapper.map(user, UserDTO.class);
-        UserDTO returnedUser = userCommandService.registUser(requestSignUpUser);
-        Map<String, Object> registrationResultResponse = new HashMap<>();
-
-        if (returnedUser == null) {
-            registrationResultResponse.put("message", "회원 등록 실패");
-        } else {
-            registrationResultResponse.put("resultCode", 200);
-            registrationResultResponse.put("message", "회원 등록 성공");
-            registrationResultResponse.put("result", mapper.map(returnedUser, ResponseUser.class));
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(registrationResultResponse);
-    }
-
-    @PostMapping("/modify")
+    @PutMapping("/")
     public ResponseEntity<Map<String, Object>> modifyUser(@RequestBody RequestUser user) {
         UserDTO userDTO = mapper.map(user, UserDTO.class);
 
@@ -60,7 +43,7 @@ public class UserCommandController {
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/")
     public ResponseEntity<Map<String, Object>> deleteUser(@RequestBody RequestUser user) {
         UserDTO userDTO = mapper.map(user, UserDTO.class);
 
