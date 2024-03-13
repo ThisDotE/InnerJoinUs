@@ -18,8 +18,8 @@ public class StudyGroupMemberController {
         this.studyGroupMemberService = studyGroupMemberService;
     }
 
-    // 전체 멤버(스터디장, 스터디원) List에 담아서 조회하기
-    @GetMapping("/studygroupmember")
+    // 스터디그룹에 가입한 전체 멤버(스터디장, 스터디원) List에 담아서 조회하기
+    @GetMapping("/studygroup/member")
     public List<StudyGroupMemberDTO> getAllStudyGroupMember() {
         List<StudyGroupMemberDTO> studyGroupMemberDTOList = studyGroupMemberService.viewAllStudyGroupMember();
         return studyGroupMemberDTOList;

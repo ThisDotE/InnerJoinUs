@@ -30,7 +30,7 @@ public class UserQueryController {
         this.userQueryService = userQueryService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<ResponseUser>> getAllUser() {
         List<UserDTO> userList = userQueryService.selectAllUser();
         List<ResponseUser> responseUserList = new ArrayList<>();
@@ -42,7 +42,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUserList);
     }
 
-    @GetMapping("/code/{userCode}")
+    @GetMapping("/{userCode}")
     public ResponseEntity<ResponseUser> getUserByUserCode(@PathVariable("userCode") Integer userCode) {
         UserDTO selectedUser = userQueryService.selectUserByUserCode(userCode);
         ResponseUser responseUser = new ResponseUser();
@@ -54,7 +54,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
-    @GetMapping("/code/with_articles_and_replies/{userCode}")
+    @GetMapping("/with_articles_and_replies/{userCode}")
     public ResponseEntity<ResponseUserFeignArticlesAndReplies> getUserByUserCodeFeignArticlesAndReplies(@PathVariable("userCode") Integer userCode) {
         UserDTO userDTO = userQueryService.getUserByUserCodeFeignArticlesAndReplies(userCode);
 
@@ -75,7 +75,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
         System.out.println("user = " + user);
         UserDTO requestSignUpUser = mapper.map(user, UserDTO.class);

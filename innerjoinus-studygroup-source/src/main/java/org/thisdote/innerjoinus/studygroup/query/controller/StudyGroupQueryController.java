@@ -25,7 +25,7 @@ public class StudyGroupQueryController {
         this.studyGroupService = studyGroupService;
     }
 
-    @GetMapping("/studygroups")
+    @GetMapping("/studygroup")
     public List<StudyGroupDTO> getAllStudyGroup() {
         List<StudyGroupDTO> studyGroupDTOList = studyGroupService.viewAllStudyGroup();
         return studyGroupDTOList;

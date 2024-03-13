@@ -31,7 +31,7 @@ public class ArticleController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/select")
+    @GetMapping("/article")
     public ResponseEntity<List<ResponseArticle>> selectAllArticle(){
         List<ArticleDTO> articleDTOList = articleService.selectAllArticle();
         List<ResponseArticle> returnValue = articleDTOToTesponseOrder(articleDTOList);
@@ -39,7 +39,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/{articleId}")
+    @GetMapping("/article/{articleId}")
     public ResponseEntity<ResponseArticle> selectArticleByArticleId(@PathVariable("articleId") int articleId) {
         ArticleDTO articleDTO = articleService.selectArticleByArticleId(articleId);
 
@@ -48,7 +48,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/question")
+    @GetMapping("/article/question")
     public ResponseEntity<List<ResponseQuestionArticle>> selectAllQuestionArticle(){
         List<ArticleDTO> articleDTOList = articleService.selectAllQuestionArticle();
         List<ResponseQuestionArticle> returnValue = new ArrayList<>();
@@ -60,7 +60,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/article/{user_code}")
+    @GetMapping("/article/user/{user_code}")
     public ResponseEntity<List<ResponseArticleByUser>> selectArticleByUser(@PathVariable("user_code") int user_code){
         List<ArticleDTO> articleDTOList = articleService.selectArticleByUser(user_code);
         List<ResponseArticleByUser> returnValue = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/study/{articleId}/{studyCate}")
+    @GetMapping("/article/study/{articleId}/{studyCate}")
     public ResponseEntity<List<ResponseStudyArticleInfo>> selectStudyArticleInfo
             (@PathVariable("articleId") int article_id, @PathVariable("studyCate") int study_cate){
         List<ArticleDTO> articleDTOList = articleService.selectStudyArticleInfo(article_id, study_cate);
@@ -81,7 +81,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @PostMapping("/select/criteria")
+    @PostMapping("/article/criteria")
     public ResponseEntity<List<ResponseSelectEnum>> selectArticleByCriteria(@RequestBody RequestSelectEnum requestCriteria) {
         Map<String, Object> criteria = new HashMap<>();
         if(SearchCriteriaEnum.TITLE.toString().equals(requestCriteria.getCriteriaEnum())){

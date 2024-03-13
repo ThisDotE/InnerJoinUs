@@ -23,10 +23,8 @@ public class CommandArticleController {
         this.commandArticleService = commandArticleService;
     }
 
-    @GetMapping("/regist_article")
-    public void registArticle(){}
 
-    @PostMapping("/regist_article")
+    @PostMapping("/article")
     public ResponseEntity<ResponseRegistArticle> registArticle(@RequestBody RequestRegistArticle registArticle){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ArticleDTO articleDTO = modelMapper.map(registArticle, ArticleDTO.class);
@@ -37,10 +35,7 @@ public class CommandArticleController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(responseRegistArticle);
     }
 
-    @GetMapping("/delete_article")
-    public void deleteArticle(){}
-
-    @PostMapping("/delete_article")
+    @DeleteMapping("/article")
     public ResponseEntity<ResponseDeleteArticle> deleteArticle(@RequestBody RequestDeleteArticle deleteArticle){
         ArticleDTO articleDTO = modelMapper.map(deleteArticle, ArticleDTO.class);
         ResponseDeleteArticle responseDeleteArticle = new ResponseDeleteArticle();
@@ -49,10 +44,7 @@ public class CommandArticleController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDeleteArticle);
     }
 
-    @GetMapping("/modify_article")
-    public void modifyArticle(){}
-
-    @PostMapping("/modify_article")
+    @PutMapping("/article")
     public ResponseEntity<ResponseModifyArticle> modifyArticle(@RequestBody RequestModifyArticle modifyArticle){
         ArticleDTO articleDTO = modelMapper.map(modifyArticle, ArticleDTO.class);
         ArticleDTO article = commandArticleService.modifyArticle(articleDTO);
@@ -62,7 +54,7 @@ public class CommandArticleController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyArticle);
     }
 
-    @GetMapping("/article/user/{articleId}")
+    @GetMapping("/article/with-user-info/{articleId}")
     public ResponseEntity<ResponseArticleUser> selectArticleUser(@PathVariable("articleId") int articleId){
         ArticleDTO articleDTO = commandArticleService.selectArticleUser(articleId);
 
