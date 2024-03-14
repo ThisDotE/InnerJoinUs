@@ -1,6 +1,5 @@
 package org.thisdote.innerjoinus.articlereply.article.command.controller;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -38,10 +37,8 @@ public class CommandArticleController {
     @DeleteMapping("/article")
     public ResponseEntity<ResponseDeleteArticle> deleteArticle(@RequestBody RequestDeleteArticle deleteArticle){
         ArticleDTO articleDTO = modelMapper.map(deleteArticle, ArticleDTO.class);
-        ResponseDeleteArticle responseDeleteArticle = new ResponseDeleteArticle();
-
-        responseDeleteArticle.setMessage(commandArticleService.deleteArticle(articleDTO));
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDeleteArticle);
+        ResponseDeleteArticle article = modelMapper.map(articleDTO, ResponseDeleteArticle.class);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(article);
     }
 
     @PutMapping("/article")
@@ -49,8 +46,7 @@ public class CommandArticleController {
         ArticleDTO articleDTO = modelMapper.map(modifyArticle, ArticleDTO.class);
         ArticleDTO article = commandArticleService.modifyArticle(articleDTO);
 
-        ResponseModifyArticle responseModifyArticle = new  ResponseModifyArticle();
-        responseModifyArticle.setMessage(article.toString());
+        ResponseModifyArticle responseModifyArticle = modelMapper.map(article, ResponseModifyArticle.class);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyArticle);
     }
 

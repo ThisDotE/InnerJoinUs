@@ -1,6 +1,5 @@
 package org.thisdote.innerjoinus.articlereply.article.command.service;
 
-import lombok.Builder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +12,19 @@ import org.thisdote.innerjoinus.articlereply.article.dto.ArticleDTO;
 import org.thisdote.innerjoinus.articlereply.client.UserClient;
 
 import java.util.Date;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CommandArticleServiceImpl implements CommandArticleService {
-    private final ModelMapper mapper;
+    private final ModelMapper modelMapper;
     private final CommandArticleRepository commandArticleRepository;
     private final UserClient userClient;
 
     @Autowired
-    public CommandArticleServiceImpl(ModelMapper mapper
+    public CommandArticleServiceImpl(ModelMapper modelMapper
             , CommandArticleRepository commandArticleRepository
             , UserClient userClient) {
-        this.mapper = mapper;
+        this.modelMapper = modelMapper;
         this.commandArticleRepository = commandArticleRepository;
         this.userClient = userClient;
     }
@@ -34,7 +33,8 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     public ArticleDTO registArticle(ArticleDTO newArticle){
         newArticle.setArticleCreateDate(new Date());
         newArticle.setArticleLastUpdateDate(new Date());
-        commandArticleRepository.save(ArticleEntity.builder().articleId(newArticle.getArticleId())
+        ArticleEntity article = commandArticleRepository.save(ArticleEntity.builder()
+                .articleId(newArticle.getArticleId())
                 .articleTitle(newArticle.getArticleTitle())
                 .articleContent(newArticle.getArticleContent())
                 .articleCategory(newArticle.getArticleCategory())
@@ -46,7 +46,7 @@ public class CommandArticleServiceImpl implements CommandArticleService {
                 .articleReportStatus(newArticle.getArticleReportStatus())
                 .studygroupMemberMaxCount(newArticle.getStudygroupMemberMaxCount())
                 .studygroupRecruitmentDeadline(newArticle.getStudygroupRecruitmentDeadline())
-                .articleQuestionCategory(newArticle.getArticleCategory())
+                .articleQuestionCategory(newArticle.getArticleQuestionCategory())
                 .userCode(newArticle.getUserCode())
                 .studygroupId(newArticle.getStudygroupId())
                 .studygroupCurrentMemberCount(newArticle.getStudygroupCurrentMemberCount())
@@ -54,21 +54,18 @@ public class CommandArticleServiceImpl implements CommandArticleService {
                 .articleDeleteStatus(newArticle.getArticleDeleteStatus())
                 .build());
 
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        return mapper.map(newArticle, ArticleDTO.class);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        return modelMapper.map(article, ArticleDTO.class);
     }
 
     @Transactional
     @Override
-    public String deleteArticle(ArticleDTO articleDTO) {
+    public ArticleDTO deleteArticle(ArticleDTO articleDTO) {
         ArticleEntity article = commandArticleRepository.findById(articleDTO.getArticleId()).get();
+        article.deleteArticle(articleDTO.getArticleDeleteStatus());
 
-        if(article.getArticleDeleteStatus() == 1){
-            return "이미 삭제된 게시글입니다.";
-        } else{
-            article.setArticleDeleteStatus(articleDTO.getArticleDeleteStatus());
-            return "게시글이 삭제 되었습니다.";
-        }
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        return modelMapper.map(article, ArticleDTO.class);
     }
 
     @Transactional
@@ -79,14 +76,14 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         article.setArticleContent(articleDTO.getArticleContent());
         article.setArticleLastUpdateDate(new Date());
 
-        return mapper.map(article, ArticleDTO.class);
+        return modelMapper.map(article, ArticleDTO.class);
     }
 
     @Override
     public ArticleDTO selectArticleUser(int articleId) {
         ArticleEntity article = commandArticleRepository.findById(articleId).get();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        ArticleDTO articleDTO = mapper.map(article, ArticleDTO.class);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
 
 //        List<ResponseUser> userList = userClient.getAllUser(articleDTO.getUserCode());
         ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());

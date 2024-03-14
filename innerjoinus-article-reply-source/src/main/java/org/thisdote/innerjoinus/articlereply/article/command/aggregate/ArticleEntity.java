@@ -8,6 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "article")
 @Data
+@Builder
 public class ArticleEntity {
     @Id
     @Column(name = "article_id")
@@ -52,9 +53,7 @@ public class ArticleEntity {
 
     }
 
-    @Builder
-
-    public ArticleEntity(Integer articleId, String articleTitle
+    public void registArticle(Integer articleId, String articleTitle
             , String articleContent, Integer articleCategory
             , Date articleCreateDate, Date articleLastUpdateDate
             , Integer articleViewCount, Integer articleLikeCount
@@ -80,6 +79,10 @@ public class ArticleEntity {
         this.studygroupId = studygroupId;
         this.studygroupCurrentMemberCount = studygroupCurrentMemberCount;
         this.studygroupPendingMemberCount = studygroupPendingMemberCount;
+        this.articleDeleteStatus = articleDeleteStatus;
+    }
+
+    public void deleteArticle(Integer articleDeleteStatus){
         this.articleDeleteStatus = articleDeleteStatus;
     }
 }

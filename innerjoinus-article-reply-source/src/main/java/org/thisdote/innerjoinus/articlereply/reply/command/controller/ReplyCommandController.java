@@ -45,7 +45,6 @@ public class ReplyCommandController {
         responseRegistReply.setReplyContent(inputReply.getReplyContent());
         responseRegistReply.setUserCode(inputReply.getUserCode());
         responseRegistReply.setArticleId(inputReply.getArticleId());
-
         responseRegistReply.setReplyReportStatus(responseReplyDTO.getReplyReportStatus());
         responseRegistReply.setReplyCreatedDate(responseReplyDTO.getReplyCreatedDate());
         responseRegistReply.setReplyLastUpdateDate(responseReplyDTO.getReplyLastUpdateDate());

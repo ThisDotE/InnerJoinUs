@@ -19,7 +19,7 @@ public class ResponseArticleUser {
     private int articleReportStatus;
     private int studygroupMemberMaxCount;
     private Date studygroupRecruitmentDeadline;
-    private String articleQuestionCategory;
+    private int articleQuestionCategory;
     private int userCode;
     private int studygroupId;
     private int studygroupCurrentMemberCount;
