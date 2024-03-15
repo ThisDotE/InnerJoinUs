@@ -50,6 +50,10 @@ public class ReplyQueryServiceImpl implements ReplyQueryService{
         return replyDTO;
     }
 
+//    public ReplyDTO selectRepliesByArticleId(int articleId) {
+//
+//    }
+
     @Override
     public ReplyDTO selectReplyByReplyId(int replyId) {
         ReplyQueryEntity replyQueryEntity = replyQueryRepository.findById(replyId).get();
