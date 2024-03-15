@@ -37,8 +37,10 @@ public class CommandArticleController {
     @DeleteMapping("/article")
     public ResponseEntity<ResponseDeleteArticle> deleteArticle(@RequestBody RequestDeleteArticle deleteArticle){
         ArticleDTO articleDTO = modelMapper.map(deleteArticle, ArticleDTO.class);
-        ResponseDeleteArticle article = modelMapper.map(articleDTO, ResponseDeleteArticle.class);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(article);
+        ArticleDTO article = commandArticleService.deleteArticle(articleDTO);
+        ResponseDeleteArticle returnValue = modelMapper.map(article, ResponseDeleteArticle.class);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(returnValue);
     }
 
     @PutMapping("/article")

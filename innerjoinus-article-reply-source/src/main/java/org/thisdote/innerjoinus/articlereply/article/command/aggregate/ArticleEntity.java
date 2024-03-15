@@ -5,10 +5,10 @@ import lombok.*;
 
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "article")
-@Data
-@Builder
+//@Builder
 public class ArticleEntity {
     @Id
     @Column(name = "article_id")
@@ -49,11 +49,7 @@ public class ArticleEntity {
     @Column(name = "article_delete_status")
     private Integer articleDeleteStatus;
 
-    public ArticleEntity() {
-
-    }
-
-    public void registArticle(Integer articleId, String articleTitle
+    public void registArticle(String articleTitle
             , String articleContent, Integer articleCategory
             , Date articleCreateDate, Date articleLastUpdateDate
             , Integer articleViewCount, Integer articleLikeCount
@@ -62,7 +58,6 @@ public class ArticleEntity {
             , Integer articleQuestionCategory, Integer userCode, Integer studygroupId
             , Integer studygroupCurrentMemberCount, Integer studygroupPendingMemberCount
             , Integer articleDeleteStatus) {
-        this.articleId = articleId;
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
         this.articleCategory = articleCategory;
@@ -82,7 +77,15 @@ public class ArticleEntity {
         this.articleDeleteStatus = articleDeleteStatus;
     }
 
+
+
     public void deleteArticle(Integer articleDeleteStatus){
         this.articleDeleteStatus = articleDeleteStatus;
+    }
+
+    public void modifyArticle(String articleTitle, String articleContent, Date date) {
+        this.articleTitle = articleTitle;
+        this.articleContent = articleContent;
+        this.articleLastUpdateDate = date;
     }
 }
