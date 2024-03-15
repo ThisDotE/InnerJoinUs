@@ -12,7 +12,6 @@ import org.thisdote.innerjoinus.articlereply.article.dto.ArticleDTO;
 import org.thisdote.innerjoinus.articlereply.client.UserClient;
 
 import java.util.Date;
-import java.util.NoSuchElementException;
 
 @Service
 public class CommandArticleServiceImpl implements CommandArticleService {
@@ -72,9 +71,6 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     @Override
     public ArticleDTO modifyArticle(ArticleDTO articleDTO) {
         ArticleEntity article = commandArticleRepository.findById(articleDTO.getArticleId()).get();
-//        article.setArticleTitle(articleDTO.getArticleTitle());
-//        article.setArticleContent(articleDTO.getArticleContent());
-//        article.setArticleLastUpdateDate(new Date());
         article.modifyArticle(articleDTO.getArticleTitle(), articleDTO.getArticleContent(), new Date());
 
         return modelMapper.map(article, ArticleDTO.class);
@@ -84,7 +80,6 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     public ArticleDTO selectArticleUser(int articleId) {
         ArticleEntity article = commandArticleRepository.findById(articleId).get();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
         ArticleDTO articleDTO = new ArticleDTO();
 
         articleDTO.setArticleTitle(article.getArticleTitle());
@@ -106,10 +101,8 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         articleDTO.setArticleDeleteStatus(article.getArticleDeleteStatus());
         articleDTO.setArticleId(article.getArticleId());
 
-//        List<ResponseUser> userList = userClient.getAllUser(articleDTO.getUserCode());
         ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());
         articleDTO.setUserList(userList);
-//        articleDTO.setReplyDTOList();
         return articleDTO;
     }
 }
