@@ -40,10 +40,20 @@ public class StudyGroupEntity {
     @Column(name="studygroup_delete_status")
     private Integer studygroupDeleteStatus;
 
-    public void insertStudyGroup(Date studygroupCreateDate, int studygroupActivationStatus
-            , int studygroupDeleteStatus) {
+    public void insertStudyGroup(
+            int studygroupType,
+            Date studygroupCreateDate,
+            int studygroupMemberCount,
+            int studygroupActivationStatus,
+            Date studygroupStudyTime,
+            String studygroupContent,
+            int studygroupDeleteStatus) {
+        this.studygroupType = studygroupType;
         this.studygroupCreateDate = studygroupCreateDate;
+        this.studygroupMemberCount = studygroupMemberCount;
         this.studygroupActivationStatus = studygroupActivationStatus;
+        this.studygroupStudyTime = studygroupStudyTime;
+        this.studygroupContent = studygroupContent;
         this.studygroupDeleteStatus = studygroupDeleteStatus;
     }
 

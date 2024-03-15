@@ -75,11 +75,4 @@ public class StudyGroupCommandController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDeleteStudyGroup);
     }
 
-//    @GetMapping("/studygroup-member/user/{}")
-//    public ResponseEntity<ResponseStudyGroupMemberUser> selectStudyGroupMemberUser(@PathVariable("studygroupMemberId") int studygroupMemberId) {
-//        StudyGroupMemberDTO studyGroupMemberDTO = StudyGroupMemberCommandService.selectStudyGroupMemberUser(studygroupMemberId);
-//
-//        ResponseStudyGroupMemberUser returnValue = mapper.map(studyGroupMemberDTO, ResponseStudyGroupMemberUser.class);
-//        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
-//    }
 }
