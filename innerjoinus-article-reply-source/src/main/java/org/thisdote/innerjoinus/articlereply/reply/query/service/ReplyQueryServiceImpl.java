@@ -12,6 +12,7 @@ import org.thisdote.innerjoinus.articlereply.reply.query.repository.ReplyMapper;
 import org.thisdote.innerjoinus.articlereply.reply.query.repository.ReplyQueryRepository;
 import org.thisdote.innerjoinus.articlereply.article.command.vo.ResponseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,9 +51,18 @@ public class ReplyQueryServiceImpl implements ReplyQueryService{
         return replyDTO;
     }
 
-//    public ReplyDTO selectRepliesByArticleId(int articleId) {
-//
-//    }
+    public List<ReplyDTO> selectRepliesByArticleId(int articleId) {
+        List<ReplyQueryEntity> replyList = replyQueryRepository.findByArticleId(articleId);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        List<ReplyDTO> replyDTOList = new ArrayList<>();
+        for (ReplyQueryEntity reply: replyList) {
+            ReplyDTO replyDTO = mapper.map(reply, ReplyDTO.class);
+            ResponseUser responseUser = userClient.getAllUser(replyDTO.getUserCode());
+            replyDTO.setResponseUser(responseUser);
+            replyDTOList.add(replyDTO);
+        }
+        return replyDTOList;
+    }
 
     @Override
     public ReplyDTO selectReplyByReplyId(int replyId) {

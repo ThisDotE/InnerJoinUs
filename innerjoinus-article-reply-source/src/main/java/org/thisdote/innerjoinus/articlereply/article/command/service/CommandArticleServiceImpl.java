@@ -10,8 +10,11 @@ import org.thisdote.innerjoinus.articlereply.article.command.repository.CommandA
 import org.thisdote.innerjoinus.articlereply.article.command.vo.ResponseUser;
 import org.thisdote.innerjoinus.articlereply.article.dto.ArticleDTO;
 import org.thisdote.innerjoinus.articlereply.client.UserClient;
+import org.thisdote.innerjoinus.articlereply.reply.dto.ReplyDTO;
+import org.thisdote.innerjoinus.articlereply.reply.query.service.ReplyQueryService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -19,14 +22,19 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     private final ModelMapper modelMapper;
     private final CommandArticleRepository commandArticleRepository;
     private final UserClient userClient;
+    private final ReplyQueryService replyQueryService;
 
     @Autowired
-    public CommandArticleServiceImpl(ModelMapper modelMapper
-            , CommandArticleRepository commandArticleRepository
-            , UserClient userClient) {
+    public CommandArticleServiceImpl(
+            ModelMapper modelMapper,
+            CommandArticleRepository commandArticleRepository,
+            UserClient userClient,
+            ReplyQueryService replyQueryService
+    ) {
         this.modelMapper = modelMapper;
         this.commandArticleRepository = commandArticleRepository;
         this.userClient = userClient;
+        this.replyQueryService = replyQueryService;
     }
 
     @Transactional
@@ -109,7 +117,8 @@ public class CommandArticleServiceImpl implements CommandArticleService {
 //        List<ResponseUser> userList = userClient.getAllUser(articleDTO.getUserCode());
         ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());
         articleDTO.setUserList(userList);
-//        articleDTO.setReplyDTOList();
+        List<ReplyDTO> replyDTOList = replyQueryService.selectRepliesByArticleId(articleId);
+        articleDTO.setReplyDTOList(replyDTOList);
         return articleDTO;
     }
 }
