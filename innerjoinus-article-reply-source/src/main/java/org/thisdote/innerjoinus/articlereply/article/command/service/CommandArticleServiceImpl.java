@@ -92,27 +92,27 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     public ArticleDTO selectArticleUser(int articleId) {
         ArticleEntity article = commandArticleRepository.findById(articleId).get();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
-        ArticleDTO articleDTO = new ArticleDTO();
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+//        ArticleDTO articleDTO = new ArticleDTO();
 
-        articleDTO.setArticleTitle(article.getArticleTitle());
-        articleDTO.setArticleContent(article.getArticleContent());
-        articleDTO.setArticleCategory(article.getArticleCategory());
-        articleDTO.setArticleCreateDate(article.getArticleCreateDate());
-        articleDTO.setArticleLastUpdateDate(article.getArticleLastUpdateDate());
-        articleDTO.setArticleViewCount(article.getArticleViewCount());
-        articleDTO.setArticleLikeCount(article.getArticleLikeCount());
-        articleDTO.setArticleReplyCount(article.getArticleReplyCount());
-        articleDTO.setArticleReportStatus(article.getArticleReportStatus());
-        articleDTO.setStudygroupMemberMaxCount(article.getStudygroupMemberMaxCount());
-        articleDTO.setStudygroupRecruitmentDeadline(article.getStudygroupRecruitmentDeadline());
-        articleDTO.setArticleQuestionCategory(article.getArticleQuestionCategory());
-        articleDTO.setUserCode(article.getUserCode());
-        articleDTO.setStudygroupId(article.getStudygroupId());
-        articleDTO.setStudygroupCurrentMemberCount(article.getStudygroupCurrentMemberCount());
-        articleDTO.setStudygroupPendingMemberCount(article.getStudygroupPendingMemberCount());
-        articleDTO.setArticleDeleteStatus(article.getArticleDeleteStatus());
-        articleDTO.setArticleId(article.getArticleId());
+//        articleDTO.setArticleTitle(article.getArticleTitle());
+//        articleDTO.setArticleContent(article.getArticleContent());
+//        articleDTO.setArticleCategory(article.getArticleCategory());
+//        articleDTO.setArticleCreateDate(article.getArticleCreateDate());
+//        articleDTO.setArticleLastUpdateDate(article.getArticleLastUpdateDate());
+//        articleDTO.setArticleViewCount(article.getArticleViewCount());
+//        articleDTO.setArticleLikeCount(article.getArticleLikeCount());
+//        articleDTO.setArticleReplyCount(article.getArticleReplyCount());
+//        articleDTO.setArticleReportStatus(article.getArticleReportStatus());
+//        articleDTO.setStudygroupMemberMaxCount(article.getStudygroupMemberMaxCount());
+//        articleDTO.setStudygroupRecruitmentDeadline(article.getStudygroupRecruitmentDeadline());
+//        articleDTO.setArticleQuestionCategory(article.getArticleQuestionCategory());
+//        articleDTO.setUserCode(article.getUserCode());
+//        articleDTO.setStudygroupId(article.getStudygroupId());
+//        articleDTO.setStudygroupCurrentMemberCount(article.getStudygroupCurrentMemberCount());
+//        articleDTO.setStudygroupPendingMemberCount(article.getStudygroupPendingMemberCount());
+//        articleDTO.setArticleDeleteStatus(article.getArticleDeleteStatus());
+//        articleDTO.setArticleId(article.getArticleId());
 
 //        List<ResponseUser> userList = userClient.getAllUser(articleDTO.getUserCode());
         ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());
@@ -122,3 +122,5 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         return articleDTO;
     }
 }
+
+
