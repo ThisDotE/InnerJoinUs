@@ -60,7 +60,7 @@ public class CommandArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @PutMapping("/article/{articleId}")
+    @GetMapping("/article/{articleId}")
     public ResponseEntity<ResponseArticleUser> increaseViewCount(@PathVariable("articleId") int articleId){
         ArticleDTO articleDTO = commandArticleService.increaseViewCount(articleId);
 
