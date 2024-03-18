@@ -52,9 +52,17 @@ public class CommandArticleController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyArticle);
     }
 
-    @GetMapping("/article/with-user-info/{articleId}")
+    @GetMapping("/article/{articleId}")
     public ResponseEntity<ResponseArticleUser> selectArticleUser(@PathVariable("articleId") int articleId){
         ArticleDTO articleDTO = commandArticleService.selectArticleUser(articleId);
+
+        ResponseArticleUser returnValue = modelMapper.map(articleDTO, ResponseArticleUser.class);
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
+
+    @GetMapping("/article/{articleId}")
+    public ResponseEntity<ResponseArticleUser> increaseViewCount(@PathVariable("articleId") int articleId){
+        ArticleDTO articleDTO = commandArticleService.increaseViewCount(articleId);
 
         ResponseArticleUser returnValue = modelMapper.map(articleDTO, ResponseArticleUser.class);
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
