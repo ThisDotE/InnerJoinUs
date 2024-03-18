@@ -28,35 +28,46 @@ public class StudyGroupCommandServiceImpl implements StudyGroupCommandService{
         studyGroupCommandDTO.setStudygroupActivationStatus(1);
         studyGroupCommandDTO.setStudygroupDeleteStatus(0);
 
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        StudyGroupEntity studyGroupEntity = mapper.map(studyGroupCommandDTO, StudyGroupEntity.class);
+        StudyGroupEntity studyGroupEntity = new StudyGroupEntity();
+        studyGroupEntity.insertStudyGroup(studyGroupCommandDTO.getStudygroupType()
+                        , studyGroupCommandDTO.getStudygroupCreateDate()
+                        , studyGroupCommandDTO.getStudygroupMemberCount()
+                        , studyGroupCommandDTO.getStudygroupActivationStatus()
+                        , studyGroupCommandDTO.getStudygroupStudyTime()
+                        , studyGroupCommandDTO.getStudygroupContent()
+                        , studyGroupCommandDTO.getStudygroupDeleteStatus());
 
         studygroupRepository.save(studyGroupEntity);
-        return studyGroupCommandDTO;
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        return mapper.map(studyGroupEntity, StudyGroupCommandDTO.class);
     }
 
     @Transactional
     @Override
-    public void updateStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO) {
+    public StudyGroupCommandDTO updateStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO) {
         StudyGroupEntity studyGroup = studygroupRepository
-                .findById(studyGroupCommandDTO.getStudygroupId()).get();
-        studyGroup.setStudygroupId(studyGroupCommandDTO.getStudygroupId());
-        studyGroup.setStudygroupType(studyGroupCommandDTO.getStudygroupType());
-        studyGroup.setStudygroupCreateDate(studyGroupCommandDTO.getStudygroupCreateDate());
-        studyGroup.setStudygroupMemberCount(studyGroupCommandDTO.getStudygroupMemberCount());
-        studyGroup.setStudygroupActivationStatus(studyGroupCommandDTO.getStudygroupActivationStatus());
-        studyGroup.setStudygroupStudyTime(studyGroupCommandDTO.getStudygroupStudyTime());
-        studyGroup.setStudygroupContent(studyGroupCommandDTO.getStudygroupContent());
-        studyGroup.setStudygroupDeleteStatus(studyGroupCommandDTO.getStudygroupDeleteStatus());
+                .findById(studyGroupCommandDTO.getStudygroupId())
+                .orElseThrow();
+        studyGroup.updateStudyGroup(studyGroupCommandDTO.getStudygroupId()
+                , studyGroupCommandDTO.getStudygroupType()
+                , studyGroupCommandDTO.getStudygroupCreateDate()
+                , studyGroupCommandDTO.getStudygroupMemberCount()
+                , studyGroupCommandDTO.getStudygroupActivationStatus()
+                , studyGroupCommandDTO.getStudygroupStudyTime()
+                , studyGroupCommandDTO.getStudygroupContent()
+                , studyGroupCommandDTO.getStudygroupDeleteStatus());
+
+        return mapper.map(studyGroup, StudyGroupCommandDTO.class);
     }
 
     @Transactional
     @Override
-    public void removeStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO) {
+    public StudyGroupCommandDTO removeStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO) {
         StudyGroupEntity studyGroup = studygroupRepository
-                .findById(studyGroupCommandDTO.getStudygroupId()).get();
-        studyGroup.setStudygroupId(studyGroupCommandDTO.getStudygroupId());
-        studyGroup.setStudygroupDeleteStatus(studyGroupCommandDTO.getStudygroupDeleteStatus());
+                .findById(studyGroupCommandDTO.getStudygroupId()).orElseThrow();
 
+        studyGroup.removeStudyGroup(studyGroupCommandDTO.getStudygroupId()
+                , studyGroupCommandDTO.getStudygroupDeleteStatus());
+        return mapper.map(studyGroup, StudyGroupCommandDTO.class);
     }
 }

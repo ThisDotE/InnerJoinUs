@@ -13,4 +13,6 @@ public interface ReplyQueryService {
     ReplyDTO selectReplyByReplyIdFeignUser(int replyId);
 
     ReplyDTO selectReplyByReplyId(int replyId);
+
+    List<ReplyDTO> selectRepliesByArticleId(int articleId);
 }

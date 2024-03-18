@@ -48,6 +48,7 @@
              , A.ARTICLE_DELETE_STATUS
           FROM ARTICLE A
     </select>
+
     <select id="selectAllQuestionArticle" resultMap="articleResultMap">
         SELECT
                A.ARTICLE_ID

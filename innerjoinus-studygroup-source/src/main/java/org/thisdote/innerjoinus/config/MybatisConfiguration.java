@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@MapperScan(basePackages = "org.thisdote.innerjoinus.studygroup", annotationClass = Mapper.class)
+@MapperScan(basePackages = "org.thisdote.innerjoinus", annotationClass = Mapper.class)
 public class MybatisConfiguration {
 
 }
