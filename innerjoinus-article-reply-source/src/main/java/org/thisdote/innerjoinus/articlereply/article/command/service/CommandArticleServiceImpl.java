@@ -83,6 +83,7 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         return modelMapper.map(article, ArticleDTO.class);
     }
 
+    @Transactional
     @Override
     public ArticleDTO selectArticleUser(int articleId) {
         ArticleEntity article = commandArticleRepository.findById(articleId).get();
