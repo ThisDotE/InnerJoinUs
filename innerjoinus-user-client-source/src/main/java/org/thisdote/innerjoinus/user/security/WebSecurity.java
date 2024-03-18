@@ -45,10 +45,6 @@ public class WebSecurity {
 
         httpSecurity.csrf((csrf) -> csrf.disable());
         httpSecurity.authorizeHttpRequests((authorize) -> authorize
-//                .requestMatchers(new AntPathRequestMatcher("/user/**")).permitAll()
-//                .requestMatchers(new AntPathRequestMatcher("/user")).permitAll()
-//                .requestMatchers(new AntPathRequestMatcher("/user", "POST")).permitAll()
-//                .requestMatchers(new AntPathRequestMatcher("/user/**", "GET")).permitAll()
 //                .requestMatchers(new AntPathRequestMatcher("/create", "POST")).permitAll()
                 .requestMatchers("/**").permitAll()
                 .anyRequest()

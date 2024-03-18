@@ -27,7 +27,7 @@ public class StudyGroupCommandController {
     }
 
     /* 필기. Insert */
-    @PostMapping("/studygroup/insert")
+    @PostMapping("/studygroup")
     @Operation(summary = "스터디 그룹 생성", description = "스터디 그룹 생성 API")
     public ResponseEntity<ResponseStudyGroup> registStudyGroup(@RequestBody RequestStudyGroup inputStudyGroup) {
 
@@ -52,7 +52,7 @@ public class StudyGroupCommandController {
     }
 
     /* 필기. Update */
-    @PostMapping("/studygroup/update")
+    @PutMapping("/studygroup")
     @Operation(summary = "스터디 그룹 수정", description = "스터디 그룹 수정 API")
     public ResponseEntity<ResponseModifyStudyGroup>
                     modifyStudyGroup(@RequestBody RequestModifyStudyGroup modifyStudyGroup){
@@ -66,11 +66,11 @@ public class StudyGroupCommandController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyStudyGroup);
     }
 
-    @PostMapping("/studygroup/delete")
+    @DeleteMapping("/studygroup")
     @Operation(summary = "스터디 그룹 삭제", description = "스터디 그룹 삭제 API")
     public ResponseEntity<ResponseDeleteStudyGroup>
                     deleteStudyGroup(@RequestBody RequestDeleteStudyGroup deleteStudyGroup) {
-        StudyGroupCommandDTO studyGroupCommandDTO =mapper.map(deleteStudyGroup, StudyGroupCommandDTO.class);
+        StudyGroupCommandDTO studyGroupCommandDTO = mapper.map(deleteStudyGroup, StudyGroupCommandDTO.class);
         System.out.println("studyGroupCommandDTO = " + studyGroupCommandDTO);
         studyGroupCommandService.removeStudyGroup(studyGroupCommandDTO);
 
@@ -79,11 +79,4 @@ public class StudyGroupCommandController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDeleteStudyGroup);
     }
 
-//    @GetMapping("/studygroup-member/user/{}")
-//    public ResponseEntity<ResponseStudyGroupMemberUser> selectStudyGroupMemberUser(@PathVariable("studygroupMemberId") int studygroupMemberId) {
-//        StudyGroupMemberDTO studyGroupMemberDTO = StudyGroupMemberCommandService.selectStudyGroupMemberUser(studygroupMemberId);
-//
-//        ResponseStudyGroupMemberUser returnValue = mapper.map(studyGroupMemberDTO, ResponseStudyGroupMemberUser.class);
-//        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
-//    }
 }

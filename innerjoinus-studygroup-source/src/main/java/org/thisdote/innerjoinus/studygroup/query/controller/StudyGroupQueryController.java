@@ -26,7 +26,7 @@ public class StudyGroupQueryController {
         this.studyGroupService = studyGroupService;
     }
 
-    @GetMapping("/studygroups")
+    @GetMapping("/studygroup")
     @Operation(summary = "스터디 그룹 전체 조회", description = "스터디 그룹 전체 조회 API")
     public List<StudyGroupDTO> getAllStudyGroup() {
         List<StudyGroupDTO> studyGroupDTOList = studyGroupService.viewAllStudyGroup();

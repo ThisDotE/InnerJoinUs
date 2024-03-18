@@ -2,6 +2,7 @@ package org.thisdote.innerjoinus.articlereply.article.command.vo;
 
 import lombok.Data;
 import org.thisdote.innerjoinus.articlereply.article.query.vo.ResponseArticle;
+import org.thisdote.innerjoinus.articlereply.reply.dto.ReplyDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ public class ResponseArticleUser {
     private int articleReportStatus;
     private int studygroupMemberMaxCount;
     private Date studygroupRecruitmentDeadline;
-    private String articleQuestionCategory;
+    private int articleQuestionCategory;
     private int userCode;
     private int studygroupId;
     private int studygroupCurrentMemberCount;
@@ -27,4 +28,5 @@ public class ResponseArticleUser {
     private int articleDeleteStatus;
 //    private List<ResponseUser> userList;
     private ResponseUser userList;
+    private List<ReplyDTO> replyDTOList;
 }

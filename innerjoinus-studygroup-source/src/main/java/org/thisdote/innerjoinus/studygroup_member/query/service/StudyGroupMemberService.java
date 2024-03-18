@@ -17,9 +17,9 @@ public class StudyGroupMemberService {
         this.sqlSession = sqlSession;
     }
 
-    public List<StudyGroupMemberDTO> selectAllStudyGroupMember() {
-        return sqlSession.getMapper(StudyGroupMemberMapper.class).selectAllStudyGroupMember();
-    }
+//    public List<StudyGroupMemberDTO> selectAllStudyGroupMember() {
+//        return sqlSession.getMapper(StudyGroupMemberMapper.class).selectAllStudyGroupMember();
+//    }
 
     public List<StudyGroupMemberDTO> selectAllStudyGroupLeader() {
         return sqlSession.getMapper(StudyGroupMemberMapper.class).selectAllStudyGroupLeader();

@@ -20,16 +20,20 @@ import java.util.Map;
 @RequestMapping("/")
 public class ReplyCommandController {
 
+    private final Environment env;
     private final ModelMapper modelMapper;
     private final ReplyCommandService replyCommandService;
 
     @Autowired
-    public ReplyCommandController(ModelMapper modelMapper, ReplyCommandService replyCommandService) {
+    public ReplyCommandController(Environment env,
+                                  ModelMapper modelMapper,
+                                  ReplyCommandService replyCommandService) {
+        this.env = env;
         this.modelMapper = modelMapper;
         this.replyCommandService = replyCommandService;
     }
 
-    @PostMapping("/regist_reply")
+    @PostMapping("/reply")
     @Operation(summary = "댓글 등록", description = "댓글 등록 API")
     public ResponseEntity<ResponseRegistReply> registReply(@RequestBody RequestRegistReply inputReply) {
 
@@ -53,7 +57,7 @@ public class ReplyCommandController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseRegistReply);
     }
 
-    @PostMapping("/modify_reply")
+    @PutMapping("/reply")
     @Operation(summary = "댓글 수정", description = "댓글 수정 API")
     public ResponseEntity<Map<String, Object>> modifyReply(@RequestBody RequestModifyReply modifyReply) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -74,7 +78,7 @@ public class ReplyCommandController {
         return ResponseEntity.status(HttpStatus.OK).body(modifyResultResponse);
     }
 
-    @PostMapping("/delete_reply")
+    @DeleteMapping("/reply")
     @Operation(summary = "댓글 삭제", description = "댓글 삭제 API")
     public ResponseEntity<ResponseDeleteReply> deleteReply(@RequestBody RequestDeleteReply deleteReply) {
 

@@ -31,7 +31,7 @@ public class UserQueryController {
         this.userQueryService = userQueryService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     @Operation(summary = "회원 전체 조회", description = "등록된 회원 전체 조회 API")
     public ResponseEntity<List<ResponseUser>> getAllUser() {
         List<UserDTO> userList = userQueryService.selectAllUser();
@@ -44,7 +44,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUserList);
     }
 
-    @GetMapping("/code/{userCode}")
+    @GetMapping("/{userCode}")
     @Operation(summary = "회원 조회", description = "등록된 회원 CODE로 조회 API")
     public ResponseEntity<ResponseUser> getUserByUserCode(@PathVariable("userCode") Integer userCode) {
         UserDTO selectedUser = userQueryService.selectUserByUserCode(userCode);
@@ -57,7 +57,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
-    @GetMapping("/code/with_articles_and_replies/{userCode}")
+    @GetMapping("/with_articles_and_replies/{userCode}")
     @Operation(summary = "회원 및 해당 회원이 작성한 게시글, 댓글 조회", description = "회원 및 해당 회원이 작성한 게시글, 댓글 조회 API")
     public ResponseEntity<ResponseUserFeignArticlesAndReplies> getUserByUserCodeFeignArticlesAndReplies(@PathVariable("userCode") Integer userCode) {
         UserDTO userDTO = userQueryService.getUserByUserCodeFeignArticlesAndReplies(userCode);
@@ -80,7 +80,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     @Operation(summary = "회원 등록", description = "회원 등록 API")
     public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
         System.out.println("user = " + user);

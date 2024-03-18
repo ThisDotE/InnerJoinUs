@@ -32,7 +32,7 @@ public class ArticleController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/select")
+    @GetMapping("/article")
     @Operation(summary = "게시글 전체 조회", description = "게시글 전체 조회 API")
     public ResponseEntity<List<ResponseArticle>> selectAllArticle(){
         List<ArticleDTO> articleDTOList = articleService.selectAllArticle();
@@ -41,7 +41,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/{articleId}")
+    @GetMapping("/article/without-info/{articleId}")
     @Operation(summary = "게시글 조회", description = "게시글 ID를 사용한 조회 API")
     public ResponseEntity<ResponseArticle> selectArticleByArticleId(@PathVariable("articleId") int articleId) {
         ArticleDTO articleDTO = articleService.selectArticleByArticleId(articleId);
@@ -51,7 +51,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/question")
+    @GetMapping("/article/question")
     @Operation(summary = "질문 게시글 전체 조회", description = "질문 게시글 전체 조회 API")
     public ResponseEntity<List<ResponseQuestionArticle>> selectAllQuestionArticle(){
         List<ArticleDTO> articleDTOList = articleService.selectAllQuestionArticle();
@@ -64,7 +64,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/article/{user_code}")
+    @GetMapping("/article/user/{user_code}")
     @Operation(summary = "회원 별 게시글 전체 조회", description = "회원 별 게시글 전체 조회 API")
     public ResponseEntity<List<ResponseArticleByUser>> selectArticleByUser(@PathVariable("user_code") int user_code){
         List<ArticleDTO> articleDTOList = articleService.selectArticleByUser(user_code);
@@ -77,7 +77,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/select/study/{articleId}/{studyCate}")
+    @GetMapping("/article/study/{articleId}/{studyCate}")
     @Operation(summary = "스터티 게시글 카테고리 별 전체 조회", description = "스터티 게시글 카테고리 별 전체 조회 API")
     public ResponseEntity<List<ResponseStudyArticleInfo>> selectStudyArticleInfo
             (@PathVariable("articleId") int article_id, @PathVariable("studyCate") int study_cate){
@@ -87,7 +87,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @PostMapping("/select/criteria")
+    @PostMapping("/article/criteria")
     @Operation(summary = "검색 조건으로 게시글 조회", description = "검색 조건으로 게시글 조회 API")
     public ResponseEntity<List<ResponseSelectEnum>> selectArticleByCriteria(@RequestBody RequestSelectEnum requestCriteria) {
         Map<String, Object> criteria = new HashMap<>();

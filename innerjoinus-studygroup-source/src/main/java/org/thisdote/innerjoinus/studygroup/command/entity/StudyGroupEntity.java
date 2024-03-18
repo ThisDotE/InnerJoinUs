@@ -3,6 +3,8 @@ package org.thisdote.innerjoinus.studygroup.command.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name="studygroup")
 @AllArgsConstructor
@@ -37,4 +39,40 @@ public class StudyGroupEntity {
 
     @Column(name="studygroup_delete_status")
     private Integer studygroupDeleteStatus;
+
+    public void insertStudyGroup(
+            int studygroupType,
+            Date studygroupCreateDate,
+            int studygroupMemberCount,
+            int studygroupActivationStatus,
+            Date studygroupStudyTime,
+            String studygroupContent,
+            int studygroupDeleteStatus) {
+        this.studygroupType = studygroupType;
+        this.studygroupCreateDate = studygroupCreateDate;
+        this.studygroupMemberCount = studygroupMemberCount;
+        this.studygroupActivationStatus = studygroupActivationStatus;
+        this.studygroupStudyTime = studygroupStudyTime;
+        this.studygroupContent = studygroupContent;
+        this.studygroupDeleteStatus = studygroupDeleteStatus;
+    }
+
+    public void updateStudyGroup(int studygroupId, int studygroupType
+            , Date studygroupCreateDate, int studygroupMemberCount
+            , int studygroupActivationStatus, Date studygroupStudyTime
+            , String studygroupContent, int studygroupDeleteStatus) {
+        this.studygroupId = studygroupId;
+        this.studygroupType = studygroupType;
+        this.studygroupCreateDate = studygroupCreateDate;
+        this.studygroupMemberCount = studygroupMemberCount;
+        this.studygroupActivationStatus = studygroupActivationStatus;
+        this.studygroupStudyTime = studygroupStudyTime;
+        this.studygroupContent = studygroupContent;
+        this.studygroupDeleteStatus = studygroupDeleteStatus;
+    }
+
+    public void removeStudyGroup(int studygroupId, int studygroupDeleteStatus) {
+        this.studygroupId = studygroupId;
+        this.studygroupDeleteStatus = studygroupDeleteStatus;
+    }
 }

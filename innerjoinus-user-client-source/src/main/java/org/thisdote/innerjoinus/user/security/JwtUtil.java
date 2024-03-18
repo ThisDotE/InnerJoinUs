@@ -58,8 +58,6 @@ public class JwtUtil {
             log.info("JWT claims strig si empty {}", e);
             return false;
         }
-
-//        return true;
     }
 
     /* 설명. Token에서 User의 Id 개념 추출 */
