@@ -86,6 +86,7 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     @Override
     public ArticleDTO selectArticleUser(int articleId) {
         ArticleEntity article = commandArticleRepository.findById(articleId).get();
+        article.increaseViewCount(article.getArticleViewCount() + 1);
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
         ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());
@@ -93,13 +94,6 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         List<ReplyDTO> replyDTOList = replyQueryService.selectRepliesByArticleId(articleId);
         articleDTO.setReplyDTOList(replyDTOList);
         return articleDTO;
-    }
-
-    @Override
-    public ArticleDTO increaseViewCount(int articleId) {
-        ArticleEntity article = commandArticleRepository.findById(articleId).get();
-        article.increaseViewCount(article.getArticleViewCount() + 1);
-        return modelMapper.map(article, ArticleDTO.class);
     }
 }
 
