@@ -39,7 +39,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/article/{articleId}")
+    @GetMapping("/article/without-info/{articleId}")
     public ResponseEntity<ResponseArticle> selectArticleByArticleId(@PathVariable("articleId") int articleId) {
         ArticleDTO articleDTO = articleService.selectArticleByArticleId(articleId);
 

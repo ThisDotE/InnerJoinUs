@@ -11,4 +11,5 @@ public interface CommandArticleService {
 
     ArticleDTO selectArticleUser(int articleId);
 
+    ArticleDTO increaseViewCount(int articleId);
 }

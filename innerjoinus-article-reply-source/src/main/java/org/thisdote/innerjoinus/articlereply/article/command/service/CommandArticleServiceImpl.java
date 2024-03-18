@@ -15,7 +15,6 @@ import org.thisdote.innerjoinus.articlereply.reply.query.service.ReplyQueryServi
 
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class CommandArticleServiceImpl implements CommandArticleService {
@@ -80,11 +79,7 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     @Override
     public ArticleDTO modifyArticle(ArticleDTO articleDTO) {
         ArticleEntity article = commandArticleRepository.findById(articleDTO.getArticleId()).get();
-//        article.setArticleTitle(articleDTO.getArticleTitle());
-//        article.setArticleContent(articleDTO.getArticleContent());
-//        article.setArticleLastUpdateDate(new Date());
         article.modifyArticle(articleDTO.getArticleTitle(), articleDTO.getArticleContent(), new Date());
-
         return modelMapper.map(article, ArticleDTO.class);
     }
 
@@ -98,6 +93,13 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         List<ReplyDTO> replyDTOList = replyQueryService.selectRepliesByArticleId(articleId);
         articleDTO.setReplyDTOList(replyDTOList);
         return articleDTO;
+    }
+
+    @Override
+    public ArticleDTO increaseViewCount(int articleId) {
+        ArticleEntity article = commandArticleRepository.findById(articleId).get();
+        article.increaseViewCount(article.getArticleViewCount() + 1);
+        return modelMapper.map(article, ArticleDTO.class);
     }
 }
 
