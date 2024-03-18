@@ -59,12 +59,4 @@ public class CommandArticleController {
         ResponseArticleUser returnValue = modelMapper.map(articleDTO, ResponseArticleUser.class);
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
-
-    @GetMapping("/article/{articleId}")
-    public ResponseEntity<ResponseArticleUser> increaseViewCount(@PathVariable("articleId") int articleId){
-        ArticleDTO articleDTO = commandArticleService.increaseViewCount(articleId);
-
-        ResponseArticleUser returnValue = modelMapper.map(articleDTO, ResponseArticleUser.class);
-        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
-    }
 }
