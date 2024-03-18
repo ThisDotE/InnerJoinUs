@@ -42,7 +42,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUserList);
     }
 
-    @GetMapping("/{userCode}")
+    @GetMapping("/without-articles-and-replies/{userCode}")
     public ResponseEntity<ResponseUser> getUserByUserCode(@PathVariable("userCode") Integer userCode) {
         UserDTO selectedUser = userQueryService.selectUserByUserCode(userCode);
         ResponseUser responseUser = new ResponseUser();
@@ -54,7 +54,7 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
-    @GetMapping("/with_articles_and_replies/{userCode}")
+    @GetMapping("/{userCode}")
     public ResponseEntity<ResponseUserFeignArticlesAndReplies> getUserByUserCodeFeignArticlesAndReplies(@PathVariable("userCode") Integer userCode) {
         UserDTO userDTO = userQueryService.getUserByUserCodeFeignArticlesAndReplies(userCode);
 
