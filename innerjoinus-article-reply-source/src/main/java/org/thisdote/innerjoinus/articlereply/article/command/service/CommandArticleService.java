@@ -10,5 +10,4 @@ public interface CommandArticleService {
     ArticleDTO registArticle(ArticleDTO articleDTO);
 
     ArticleDTO selectArticleUser(int articleId);
-
 }

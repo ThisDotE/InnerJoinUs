@@ -88,4 +88,8 @@ public class ArticleEntity {
         this.articleContent = articleContent;
         this.articleLastUpdateDate = date;
     }
+
+    public void increaseViewCount(int articleViewCount) {
+        this.articleViewCount = articleViewCount;
+    }
 }

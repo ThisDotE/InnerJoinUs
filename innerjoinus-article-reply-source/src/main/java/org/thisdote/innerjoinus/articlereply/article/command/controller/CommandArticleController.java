@@ -52,7 +52,7 @@ public class CommandArticleController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseModifyArticle);
     }
 
-    @GetMapping("/article/with-user-info/{articleId}")
+    @GetMapping("/article/{articleId}")
     public ResponseEntity<ResponseArticleUser> selectArticleUser(@PathVariable("articleId") int articleId){
         ArticleDTO articleDTO = commandArticleService.selectArticleUser(articleId);
 
