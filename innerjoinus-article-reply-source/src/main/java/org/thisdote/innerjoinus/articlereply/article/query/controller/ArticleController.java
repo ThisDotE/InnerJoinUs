@@ -102,6 +102,15 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
+    @GetMapping("/main")
+    private ResponseEntity<ResponseArticle> popularArticle(){
+        Map<Integer, ArticleDTO> articleDTO = articleService.popularArticle();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ResponseArticle returnValue = mapper.map(articleDTO, ResponseArticle.class);
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
+
+
     private List<ResponseArticle> articleDTOToTesponseOrder(List<ArticleDTO> articleDTOList) {
         List<ResponseArticle> responseArticles = new ArrayList<>();
         for (ArticleDTO articleDTO : articleDTOList) {
@@ -154,5 +163,4 @@ public class ArticleController {
         }
         return responseArticles;
     }
-
 }
