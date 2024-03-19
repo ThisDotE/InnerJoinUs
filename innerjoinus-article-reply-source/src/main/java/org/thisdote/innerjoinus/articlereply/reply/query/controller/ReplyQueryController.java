@@ -51,7 +51,7 @@ public class ReplyQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
-    @GetMapping("/reply/with_user_info/{replyId}")
+    @GetMapping("/reply/{replyId}")
     public ResponseEntity<ResponseSelectReplyByReplyIdFeignUser> selectReplyByReplyIdFeignUser(@PathVariable("replyId") int replyId) {
         ReplyDTO replyDTO = replyQueryService.selectReplyByReplyIdFeignUser(replyId);
 
@@ -59,7 +59,7 @@ public class ReplyQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/reply/{replyId}")
+    @GetMapping("/reply/without-user-info/{replyId}")
     public ResponseEntity<ResponseSelectReplyByReplyId> selectReplyByReplyId(@PathVariable("replyId") int replyId) {
         ReplyDTO replyDTO = replyQueryService.selectReplyByReplyId(replyId);
 
