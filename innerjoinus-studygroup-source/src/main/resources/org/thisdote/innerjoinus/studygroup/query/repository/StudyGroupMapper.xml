@@ -84,4 +84,34 @@
           FROM STUDYGROUP
          WHERE STUDYGROUP_TYPE = #{studygroup_type};
     </select>
+
+    <resultMap id="studyGroupMemberMap" type="org.thisdote.innerjoinus.studygroup.dto.StudyGroupDTO" extends="studyGroupResultMap">
+        <collection property="studyGroupMemberDTOList" ofType="org.thisdote.innerjoinus.studygroup_member.dto.StudyGroupMemberDTO">
+            <id property="studyGroupMemberId" column="STUDYGROUP_MEMBER_ID"/>
+            <result property="studyGroupId" column="STUDYGROUP_ID"/>
+            <result property="studyGroupRole" column="STUDYGROUP_ROLE"/>
+            <result property="studyGroupRegistDate" column="STUDYGROUP_REGIST_DATE"/>
+            <result property="userCode" column="USER_CODE"/>
+        </collection>
+    </resultMap>
+    
+    <select id="selectAllStudyGroupByUser" resultMap="studyGroupMemberMap" parameterType="_int">
+        SELECT
+        A.STUDYGROUP_ID
+        , A.STUDYGROUP_TYPE
+        , A.STUDYGROUP_CREATE_DATE
+        , A.STUDYGROUP_MEMBER_COUNT
+        , A.STUDYGROUP_ACTIVATION_STATUS
+        , A.STUDYGROUP_STUDY_TIME
+        , A.STUDYGROUP_CONTENT
+        , A.STUDYGROUP_DELETE_STATUS
+        , B.STUDYGROUP_MEMBER_ID
+        , B.STUDYGROUP_ID
+        , B.STUDYGROUP_ROLE
+        , B.STUDYGROUP_REGIST_DATE
+        , B.USER_CODE
+          FROM STUDYGROUP A
+          JOIN STUDYGROUP_MEMBER B ON (A.STUDYGROUP_ID = B.STUDYGROUP_ID)
+         WHERE B.USER_CODE = #{userCode}
+    </select>
 </mapper>

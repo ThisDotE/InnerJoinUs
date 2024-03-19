@@ -3,9 +3,11 @@ package org.thisdote.innerjoinus.user.dto;
 import lombok.Data;
 import org.thisdote.innerjoinus.user.vo.ResponseArticle;
 import org.thisdote.innerjoinus.user.vo.ResponseReply;
+import org.thisdote.innerjoinus.user.vo.ResponseStudyGroup;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class UserDTO {
@@ -23,4 +25,5 @@ public class UserDTO {
     private StudyGroupMemberDTO studyGroupMemberDTO;
     private List<ResponseArticle> articleList;
     private List<ResponseReply> replyList;
+    private List<ResponseStudyGroup> studyGroupList;
 }

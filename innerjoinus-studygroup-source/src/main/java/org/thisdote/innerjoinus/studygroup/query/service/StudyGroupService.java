@@ -41,4 +41,8 @@ public class StudyGroupService {
     public List<StudyGroupDTO> viewAllStudyGroup() {
         return sqlSession.getMapper(StudyGroupMapper.class).selectAllStudyGroup();
     }
+
+    public List<StudyGroupDTO> selectAllStudyGroupByUser(Integer userCode) {
+        return sqlSession.getMapper(StudyGroupMapper.class).selectAllStudyGroupByUser(userCode);
+    }
 }
