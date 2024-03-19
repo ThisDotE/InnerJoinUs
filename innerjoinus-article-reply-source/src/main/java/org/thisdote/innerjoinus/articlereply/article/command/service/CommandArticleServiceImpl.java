@@ -87,6 +87,7 @@ public class CommandArticleServiceImpl implements CommandArticleService {
     @Override
     public ArticleDTO selectArticleUser(int articleId) {
         ArticleEntity article = commandArticleRepository.findById(articleId).get();
+
         article.increaseViewCount(article.getArticleViewCount() + 1);
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);

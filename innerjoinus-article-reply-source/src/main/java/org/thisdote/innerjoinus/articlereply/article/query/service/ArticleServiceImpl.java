@@ -11,8 +11,7 @@ import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleMap
 import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleQueryRepository;
 
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -56,5 +55,41 @@ public class ArticleServiceImpl implements ArticleService {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper.map(articleQueryEntity, ArticleDTO.class);
     }
+
+    @Override
+    public Map<Integer, ArticleDTO> popularArticle() {
+        List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
+        Map<Integer, ArticleDTO> articleMap = new HashMap<>();
+
+        for (int category = 1; category <= 3; category++) {
+            int finalCategory = category;
+            articleDTOList.stream()
+                    .filter(articleDTO -> articleDTO.getArticleCategory() == finalCategory)
+                    .max(Comparator.comparingInt(ArticleDTO::getArticleViewCount))
+                    .ifPresent(articleDTO -> articleMap.put(finalCategory, articleDTO));
+        }
+
+        return articleMap;
+    }
+
+//    @Override
+//    public Map<Integer, ArticleDTO> popularArticle() {
+//        List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
+//        Map<Integer, ArticleDTO> articleMap = new HashMap<>();
+////        articleDTOList.stream().sorted(Comparator.comparing(ArticleDTO::getArticleCategory)).toList();
+//        for (ArticleDTO articleDTO : articleDTOList) {
+//            if(articleDTO.getArticleCategory() == 1){
+//                articleMap.put(1, articleDTO);
+//            } else if(articleDTO.getArticleCategory() == 2){
+//                articleMap.put(2, articleDTO);
+//            } else {
+//                articleMap.put(3, articleDTO);
+//            }
+//        }
+//        List<Map.Entry<Integer, ArticleDTO>> list = new ArrayList<>(articleMap.entrySet());
+//        list.sort(Map.Entry.comparingByValue(Comparator.comparing(ArticleDTO::getArticleViewCount)));
+//
+//        return null;
+//    }
 }
 
