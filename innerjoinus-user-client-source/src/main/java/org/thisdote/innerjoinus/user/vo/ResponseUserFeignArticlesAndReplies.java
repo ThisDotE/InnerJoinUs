@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class ResponseUserFeignArticlesAndReplies {
@@ -19,4 +20,5 @@ public class ResponseUserFeignArticlesAndReplies {
     private Integer userResignStatus;
     private List<ResponseArticle> articleList;
     private List<ResponseReply> replyList;
+    private List<ResponseStudyGroup> studyGroupList;
 }
