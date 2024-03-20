@@ -186,8 +186,8 @@
         , A.STUDYGROUP_PENDING_MEMBER_COUNT
         , A.ARTICLE_DELETE_STATUS
         FROM ARTICLE A
-        WHERE DATE(articleCreateDate) = CURDATE()
-        AND articleDeleteStatus = 0
+        WHERE DATE(ARTICLE_CREATE_DATE) = CURDATE()
+        AND ARTICLE_DELETE_STATUS = 0
 
     </select>
 

@@ -12,6 +12,7 @@ import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleQue
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -57,21 +58,26 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Map<Integer, ArticleDTO> popularArticle() {
+    public Map<Integer, List<ArticleDTO>> popularArticle() {
         List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
-        Map<Integer, ArticleDTO> articleMap = new HashMap<>();
+        Map<Integer, List<ArticleDTO>> articleMap = new HashMap<>();
 
+        // 각 카테고리별로 게시글을 조회수 높은 순으로 정렬하여 리스트로 만듦
         for (int category = 1; category <= 3; category++) {
             int finalCategory = category;
-            articleDTOList.stream()
+            List<ArticleDTO> sortedArticles = articleDTOList.stream()
                     .filter(articleDTO -> articleDTO.getArticleCategory() == finalCategory)
-                    .max(Comparator.comparingInt(ArticleDTO::getArticleViewCount))
-                    .ifPresent(articleDTO -> articleMap.put(finalCategory, articleDTO));
+                    .sorted(Comparator.comparingInt(ArticleDTO::getArticleViewCount).reversed()) // 조회수 높은 순으로 정렬
+                    .collect(Collectors.toList());
+            sortedArticles.forEach(System.out::println);
+            // 결과가 있으면 맵에 추가
+            if (!sortedArticles.isEmpty()) {
+                articleMap.put(finalCategory, sortedArticles);
+            }
         }
 
         return articleMap;
     }
-
 //    @Override
 //    public Map<Integer, ArticleDTO> popularArticle() {
 //        List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
