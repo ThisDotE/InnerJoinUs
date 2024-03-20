@@ -164,4 +164,31 @@
            AND A.ARTICLE_CATEGORY = #{ studyCate }
     </select>
 
+
+    <select id="currentDaySelect" resultMap="articleResultMap">
+        SELECT
+        A.ARTICLE_ID
+        , A.ARTICLE_TITLE
+        , A.ARTICLE_CONTENT
+        , A.ARTICLE_CATEGORY
+        , A.ARTICLE_CREATE_DATE
+        , A.ARTICLE_LAST_UPDATE_DATE
+        , A.ARTICLE_VIEW_COUNT
+        , A.ARTICLE_LIKE_COUNT
+        , A.ARTICLE_REPLY_COUNT
+        , A.ARTICLE_REPORT_STATUS
+        , A.STUDYGROUP_MEMBER_MAX_COUNT
+        , A.STUDYGROUP_RECRUITMENT_DEADLINE
+        , A.ARTICLE_QUESTION_CATEGORY
+        , A.USER_CODE
+        , A.STUDYGROUP_ID
+        , A.STUDYGROUP_CURRENT_MEMBER_COUNT
+        , A.STUDYGROUP_PENDING_MEMBER_COUNT
+        , A.ARTICLE_DELETE_STATUS
+        FROM ARTICLE A
+        WHERE DATE(ARTICLE_CREATE_DATE) = CURDATE()
+        AND ARTICLE_DELETE_STATUS = 0
+
+    </select>
+
 </mapper>

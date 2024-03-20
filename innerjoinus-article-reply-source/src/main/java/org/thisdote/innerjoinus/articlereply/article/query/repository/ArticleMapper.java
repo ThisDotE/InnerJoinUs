@@ -17,4 +17,6 @@ public interface ArticleMapper {
     List<ArticleDTO> selectStudyArticleInfo(int articleId, int studyCate);
 
     List<ArticleDTO> selectArticleByCriteria(Map<String, Object> criteria);
+
+    List<ArticleDTO> currentDaySelect();
 }

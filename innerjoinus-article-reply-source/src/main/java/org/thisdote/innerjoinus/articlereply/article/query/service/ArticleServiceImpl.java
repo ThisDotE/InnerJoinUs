@@ -11,8 +11,8 @@ import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleMap
 import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleQueryRepository;
 
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -55,6 +55,26 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleQueryEntity articleQueryEntity = articleQueryRepository.findById(articleId).get();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper.map(articleQueryEntity, ArticleDTO.class);
+    }
+
+    @Override
+    public Map<Integer, List<ArticleDTO>> popularArticle() {
+        List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
+        Map<Integer, List<ArticleDTO>> articleMap = new HashMap<>();
+
+        for (int category = 1; category <= 3; category++) {
+            int finalCategory = category;
+            List<ArticleDTO> sortedArticles = articleDTOList.stream()
+                    .filter(articleDTO -> articleDTO.getArticleCategory() == finalCategory)
+                    .sorted(Comparator.comparingInt(ArticleDTO::getArticleViewCount).reversed())
+                    .collect(Collectors.toList());
+            sortedArticles.forEach(System.out::println);
+            if (!sortedArticles.isEmpty()) {
+                articleMap.put(finalCategory, sortedArticles);
+            }
+        }
+
+        return articleMap;
     }
 }
 
