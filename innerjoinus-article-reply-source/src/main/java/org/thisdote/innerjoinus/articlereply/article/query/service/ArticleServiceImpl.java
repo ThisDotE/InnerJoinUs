@@ -62,15 +62,13 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
         Map<Integer, List<ArticleDTO>> articleMap = new HashMap<>();
 
-        // 각 카테고리별로 게시글을 조회수 높은 순으로 정렬하여 리스트로 만듦
         for (int category = 1; category <= 3; category++) {
             int finalCategory = category;
             List<ArticleDTO> sortedArticles = articleDTOList.stream()
                     .filter(articleDTO -> articleDTO.getArticleCategory() == finalCategory)
-                    .sorted(Comparator.comparingInt(ArticleDTO::getArticleViewCount).reversed()) // 조회수 높은 순으로 정렬
+                    .sorted(Comparator.comparingInt(ArticleDTO::getArticleViewCount).reversed())
                     .collect(Collectors.toList());
             sortedArticles.forEach(System.out::println);
-            // 결과가 있으면 맵에 추가
             if (!sortedArticles.isEmpty()) {
                 articleMap.put(finalCategory, sortedArticles);
             }
@@ -78,24 +76,5 @@ public class ArticleServiceImpl implements ArticleService {
 
         return articleMap;
     }
-//    @Override
-//    public Map<Integer, ArticleDTO> popularArticle() {
-//        List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).currentDaySelect();
-//        Map<Integer, ArticleDTO> articleMap = new HashMap<>();
-////        articleDTOList.stream().sorted(Comparator.comparing(ArticleDTO::getArticleCategory)).toList();
-//        for (ArticleDTO articleDTO : articleDTOList) {
-//            if(articleDTO.getArticleCategory() == 1){
-//                articleMap.put(1, articleDTO);
-//            } else if(articleDTO.getArticleCategory() == 2){
-//                articleMap.put(2, articleDTO);
-//            } else {
-//                articleMap.put(3, articleDTO);
-//            }
-//        }
-//        List<Map.Entry<Integer, ArticleDTO>> list = new ArrayList<>(articleMap.entrySet());
-//        list.sort(Map.Entry.comparingByValue(Comparator.comparing(ArticleDTO::getArticleViewCount)));
-//
-//        return null;
-//    }
 }
 

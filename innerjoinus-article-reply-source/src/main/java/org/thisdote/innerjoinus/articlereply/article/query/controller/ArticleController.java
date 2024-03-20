@@ -105,12 +105,6 @@ public class ArticleController {
     @GetMapping("/main")
     private ResponseEntity<Map<Integer, List<ArticleDTO>>> popularArticle(){
         Map<Integer, List<ArticleDTO>> articleDTO = articleService.popularArticle();
-//        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//        List<ArticleDTO> studyArticle = articleDTO.get(3).stream().toList();
-//        List<ResponseArticle> returnValue = new ArrayList<>();
-//        if(studyArticle != null){
-//            returnValue = studyArticle.stream().map(ArticleDTO -> mapper.map(ArticleDTO, ResponseArticle.class)).toList();
-//        }
         return ResponseEntity.status(HttpStatus.OK).body(articleDTO);
     }
 
