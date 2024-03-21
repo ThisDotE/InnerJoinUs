@@ -1,4 +1,4 @@
-package org.thisdote.innerjoinus.articlereply.reportedreply.aggregate;
+package org.thisdote.innerjoinus.articlereply.reportedreply.command.aggregate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -13,23 +13,16 @@ public class CommandReportedArticleEntity {
     @Id
     @Column
     private int reportArticleId;
-
     @Column
     private int articleId;
-
     @Column
     private int userCode;
-
     @Column
     private Date reportDate;
-
     @Column
     private String reportContent;
-
     @Column
     private int reportReportedCount;
-
     @Column
     private int reportType;
-
 }
