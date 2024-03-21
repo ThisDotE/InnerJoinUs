@@ -42,18 +42,27 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 //          }]
 //        registrationId = google
 
-        /* TODO
+        /* TODO - OAuth login
          *  현재는 google만,,,
          *  github, kakao 추가 예정
          * */
         OAuth2Response oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
 
-        String userName = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
+        String loginCode = oAuth2Response.getProvider() + "_" + oAuth2Response.getProviderId();
 
+        /* TODO - login 성공 후 user 정보
+         *  1. User 정보 DB에서 조회하여 가입 여부 확인
+         *      loginCode로 조회.. DB에 컬럼 추가 필요
+         *  2. 없으면 DB에 저장
+         *  3. 있으면... 정보 업데이트..?
+        * */
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserName(userName);
+        userDTO.setLoginCode(loginCode);
         userDTO.setName(oAuth2Response.getName());
         userDTO.setRole("ROLE_USER");
+
+        System.out.println("oAuth2User = " + oAuth2User);
+        System.out.println("userDTO = " + userDTO);
 
         return new CustomOAuth2User(userDTO);
     }
