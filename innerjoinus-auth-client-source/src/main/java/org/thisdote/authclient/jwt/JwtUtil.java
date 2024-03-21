@@ -9,6 +9,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+import static org.thisdote.authclient.common.Constant.JWT_ATTR_LOGIN_CODE;
+import static org.thisdote.authclient.common.Constant.JWT_ATTR_ROLE;
+
 @Component
 public class JwtUtil {
 
@@ -33,7 +36,7 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
-                .get("loginCode", String.class);
+                .get(JWT_ATTR_LOGIN_CODE, String.class);
     }
 
     public String getRole(String token) {
@@ -43,7 +46,7 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
-                .get("role", String.class);
+                .get(JWT_ATTR_ROLE, String.class);
     }
 
     public Boolean isExpired(String token) {
@@ -60,8 +63,8 @@ public class JwtUtil {
     public String createJwt(String loginCode, String role) {
         return Jwts
                 .builder()
-                .claim("loginCode", loginCode)
-                .claim("role", role)
+                .claim(JWT_ATTR_LOGIN_CODE, loginCode)
+                .claim(JWT_ATTR_ROLE, role)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(secretKey)
