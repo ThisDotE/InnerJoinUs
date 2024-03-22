@@ -1,12 +1,14 @@
 package org.thisdote.innerjoinus.user.inquiry.query.service;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thisdote.innerjoinus.user.inquiry.dto.InquiryDTO;
 import org.thisdote.innerjoinus.user.inquiry.query.aggregate.QueryInquiryEntity;
 import org.thisdote.innerjoinus.user.inquiry.query.repository.QueryInquiryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,6 +39,14 @@ public class QueryInquiryServiceImpl implements QueryInquiryService{
 
     @Override
     public List<InquiryDTO> selectInquiriesByUser(Integer userCode) {
-        return null;
+        List<QueryInquiryEntity> inquiryEntityList = queryInquiryRepository.findByUserCode(userCode);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        List<InquiryDTO> inquiryDTOList = inquiryEntityList
+                .stream()
+                .map(QueryInquiryEntity ->
+                        mapper.map(QueryInquiryEntity, InquiryDTO.class))
+                .toList();
+
+        return inquiryDTOList;
     }
 }

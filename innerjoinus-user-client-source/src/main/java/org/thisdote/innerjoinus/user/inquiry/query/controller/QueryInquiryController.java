@@ -49,8 +49,15 @@ public class QueryInquiryController {
     @GetMapping("/inquiry/user/{userCode}")
     public ResponseEntity<List<ResponseQueryInquiry>> selectInquiriesByUser(@PathVariable("userCode") Integer userCode) {
         List<InquiryDTO> inquiryDTOList = queryInquiryService.selectInquiriesByUser(userCode);
-        List<ResponseQueryInquiry> responseQueryInquiryList = new ArrayList<>();
+        List<ResponseQueryInquiry> responseInquiryList = new ArrayList<>();
 
-        return null;
+        if(inquiryDTOList != null) {
+            responseInquiryList = inquiryDTOList
+                    .stream()
+                    .map(InquiryDTO ->
+                            mapper.map(InquiryDTO, ResponseQueryInquiry.class))
+                    .toList();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(responseInquiryList);
     }
 }
