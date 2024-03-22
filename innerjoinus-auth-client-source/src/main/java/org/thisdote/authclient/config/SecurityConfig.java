@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.thisdote.authclient.jwt.JwtFilter;
 import org.thisdote.authclient.jwt.JwtUtil;
 import org.thisdote.authclient.oauth2.LoginSuccessHandler;
 import org.thisdote.authclient.service.OAuth2UserService;
@@ -41,6 +43,9 @@ public class SecurityConfig {
 
         // http basic 인증 방식 disable
         httpSecurity.httpBasic(auth -> auth.disable());
+
+        // JWT Filter 추가
+        httpSecurity.addFilterBefore(new JwtFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         // oauth2
         httpSecurity.oauth2Login(oauth2 -> oauth2
