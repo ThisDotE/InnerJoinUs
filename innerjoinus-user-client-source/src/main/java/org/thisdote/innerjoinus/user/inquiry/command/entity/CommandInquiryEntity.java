@@ -1,4 +1,4 @@
-package org.thisdote.innerjoinus.inquiry.command.entity;
+package org.thisdote.innerjoinus.user.inquiry.command.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
