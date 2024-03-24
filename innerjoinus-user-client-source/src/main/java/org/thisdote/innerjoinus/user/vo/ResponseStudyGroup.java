@@ -1,17 +1,12 @@
-package org.thisdote.innerjoinus.studygroup.query.vo;
+package org.thisdote.innerjoinus.user.vo;
 
-import lombok.*;
-import org.thisdote.innerjoinus.studygroup_member.dto.StudyGroupMemberDTO;
+import lombok.Data;
+import org.thisdote.innerjoinus.user.dto.StudyGroupMemberDTO;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 public class ResponseStudyGroup {
-
     private int studyGroupId;
     private int studygroupType;
     private String studygroupCreateDate;
