@@ -1,4 +1,4 @@
-package org.thisdote.innerjoinus.user.vo;
+package org.thisdote.authclient.vo;
 
 import lombok.Data;
 

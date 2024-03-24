@@ -1,20 +1,31 @@
 package org.thisdote.authclient.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.thisdote.authclient.client.UserServiceClient;
 import org.thisdote.authclient.dto.CustomOAuth2User;
 import org.thisdote.authclient.dto.UserDTO;
 import org.thisdote.authclient.vo.GoogleResponse;
 import org.thisdote.authclient.vo.OAuth2Response;
+import org.thisdote.authclient.vo.RequestUser;
+import org.thisdote.authclient.vo.ResponseUser;
 
 
 @Service
 @Slf4j
 public class OAuth2UserService extends DefaultOAuth2UserService {
+
+    private final UserServiceClient userServiceClient;
+
+    @Autowired
+    public OAuth2UserService(UserServiceClient userServiceClient) {
+        this.userServiceClient = userServiceClient;
+    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -50,19 +61,31 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
         String loginCode = oAuth2Response.getProvider() + "_" + oAuth2Response.getProviderId();
 
-        /* TODO - login 성공 후 user 정보
-         *  1. User 정보 DB에서 조회하여 가입 여부 확인
-         *      loginCode로 조회.. DB에 컬럼 추가 필요
-         *  2. 없으면 DB에 저장
-         *  3. 있으면... 정보 업데이트..?
-        * */
         UserDTO userDTO = new UserDTO();
         userDTO.setLoginCode(loginCode);
         userDTO.setName(oAuth2Response.getName());
         userDTO.setRole("ROLE_USER");
 
-        System.out.println("oAuth2User = " + oAuth2User);
         System.out.println("userDTO = " + userDTO);
+
+        ResponseUser userInfo = userServiceClient.getUserInfo(loginCode);
+
+        System.out.println("userInfo = " + userInfo);
+
+        boolean isExistUser = userInfo.getUserCode() != null;
+
+        if (!isExistUser) {
+            // 가입 진행
+            RequestUser user = new RequestUser();
+            user.setUserId(oAuth2Response.getProviderId());
+            user.setUserPassword("");
+            user.setUserPhone("");
+            user.setUserEmail(oAuth2Response.getEmail());
+            user.setUserLoginCode(loginCode);
+            user.setUserRole("ROLE_USER");
+
+            userServiceClient.registUser(user);
+        }
 
         return new CustomOAuth2User(userDTO);
     }

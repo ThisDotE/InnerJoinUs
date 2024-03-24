@@ -37,13 +37,18 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     ) throws IOException, ServletException {
 
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
-
         String loginCode = customUserDetails.getLoginCode();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
+
+        /* TODO
+         *  1. accessToken, refreshToken 생성
+         *  2. accessToken은 user에게 반환
+         *  3. refreshToken은 redis 사용하여 accessToken(key): refreshToken(value) 형태로 저장
+        * */
 
         String token = jwtUtil.createJwt(loginCode, role);
 

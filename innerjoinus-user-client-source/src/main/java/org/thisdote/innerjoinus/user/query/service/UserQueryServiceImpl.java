@@ -56,6 +56,7 @@ public class UserQueryServiceImpl implements UserQueryService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         Date createdDate = new Date();
+        userDTO.setUserBirthday(createdDate);
         userDTO.setUserRegistDate(createdDate);
         userDTO.setUserInfoUpdateDate(createdDate);
 
