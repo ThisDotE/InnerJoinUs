@@ -17,6 +17,8 @@
         <result property="userInfoUpdateDate" column="USER_INFO_UPDATE_DATE"/>
         <result property="userGrade" column="USER_GRADE"/>
         <result property="userResignStatus" column="USER_RESIGN_STATUS"/>
+        <result property="userLoginCode" column="USER_LOGIN_CODE"/>
+        <result property="userRole" column="USER_ROLE"/>
     </resultMap>
 
     <resultMap id="studyGroupMemberResultMap" type="org.thisdote.innerjoinus.user.dto.UserDTO" extends="userResultMap">
@@ -41,6 +43,8 @@
              , A.USER_INFO_UPDATE_DATE
              , A.USER_GRADE
              , A.USER_RESIGN_STATUS
+             , A.USER_LOGIN_CODE
+             , A.USER_ROLE
           FROM USER A
          WHERE USER_RESIGN_STATUS = 0
     </select>
@@ -58,6 +62,8 @@
              , A.USER_INFO_UPDATE_DATE
              , A.USER_GRADE
              , A.USER_RESIGN_STATUS
+             , A.USER_LOGIN_CODE
+             , A.USER_ROLE
           FROM USER A
          WHERE USER_RESIGN_STATUS = #{resignStatus}
     </select>
@@ -75,6 +81,8 @@
              , A.USER_INFO_UPDATE_DATE
              , A.USER_GRADE
              , A.USER_RESIGN_STATUS
+             , A.USER_LOGIN_CODE
+             , A.USER_ROLE
           FROM USER A
          WHERE USER_ID = #{userId};
     </select>
@@ -92,8 +100,29 @@
              , A.USER_INFO_UPDATE_DATE
              , A.USER_GRADE
              , A.USER_RESIGN_STATUS
+             , A.USER_LOGIN_CODE
+             , A.USER_ROLE
           FROM USER A
          WHERE USER_CODE = #{userCode};
+    </select>
+
+    <select id="selectUserByLoginCode" resultMap="userResultMap" parameterType="string">
+        SELECT
+               A.USER_CODE
+             , A.USER_ID
+             , A.USER_PASSWORD
+             , A.USER_BIRTHDAY
+             , A.USER_PHONE
+             , A.USER_EMAIL
+             , A.USER_STUDYGROUP_STATUS
+             , A.USER_REGIST_DATE
+             , A.USER_INFO_UPDATE_DATE
+             , A.USER_GRADE
+             , A.USER_RESIGN_STATUS
+             , A.USER_LOGIN_CODE
+             , A.USER_ROLE
+          FROM USER A
+         WHERE USER_LOGIN_CODE = #{loginCode};
     </select>
 
 </mapper>

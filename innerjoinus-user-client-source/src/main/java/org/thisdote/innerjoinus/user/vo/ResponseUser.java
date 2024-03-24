@@ -16,4 +16,6 @@ public class ResponseUser {
     private Date userInfoUpdateDate;
     private Integer userGrade;
     private Integer userResignStatus;
+    private String userLoginCode;
+    private String userRole;
 }

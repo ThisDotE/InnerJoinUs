@@ -47,4 +47,10 @@ public class UserQueryEntity {
 
     @Column(name = "user_resign_status")
     private int userResignStatus;
+
+    @Column(name = "user_login_code")
+    private String userLoginCode;
+
+    @Column(name = "user_role")
+    private String userRole;
 }

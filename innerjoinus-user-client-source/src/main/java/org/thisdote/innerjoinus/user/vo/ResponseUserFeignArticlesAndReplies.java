@@ -18,6 +18,8 @@ public class ResponseUserFeignArticlesAndReplies {
     private Date userInfoUpdateDate;
     private Integer userGrade;
     private Integer userResignStatus;
+    private String userLoginCode;
+    private String userRole;
     private List<ResponseArticle> articleList;
     private List<ResponseReply> replyList;
     private List<ResponseStudyGroup> studyGroupList;

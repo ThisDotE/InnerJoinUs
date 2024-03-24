@@ -75,6 +75,18 @@ public class UserQueryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
+    @GetMapping("/login-code/{loginCode}")
+    public ResponseEntity<ResponseUser> getUserByLoginCode(@PathVariable("loginCode") String loginCode) {
+        UserDTO selectedUser = userQueryService.selectUserByLoginCode(loginCode);
+        ResponseUser responseUser = new ResponseUser();
+
+        if (selectedUser != null) {
+            responseUser = mapper.map(selectedUser, ResponseUser.class);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseUser);
+    }
+
     @PostMapping("/")
     public ResponseEntity<Map<String, Object>> registUser(@RequestBody RequestUser user) {
         System.out.println("user = " + user);

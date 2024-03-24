@@ -22,6 +22,8 @@ public class UserDTO {
     private Date userInfoUpdateDate;
     private int userGrade;
     private int userResignStatus;       // 0 - 회원, 1 - 탈퇴 회원
+    private String userLoginCode;
+    private String userRole;
     private StudyGroupMemberDTO studyGroupMemberDTO;
     private List<ResponseArticle> articleList;
     private List<ResponseReply> replyList;

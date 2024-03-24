@@ -120,6 +120,11 @@ public class UserQueryServiceImpl implements UserQueryService {
     }
 
     @Override
+    public UserDTO selectUserByLoginCode(String loginCode) {
+        return userMapper.selectUserByLoginCode(loginCode);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUserId(username);
 
