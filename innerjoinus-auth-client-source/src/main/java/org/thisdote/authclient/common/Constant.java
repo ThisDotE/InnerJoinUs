@@ -19,4 +19,8 @@ public class Constant {
     /* JWT attribute */
     public static final String JWT_ATTR_LOGIN_CODE = "loginCode";
     public static final String JWT_ATTR_ROLE = "role";
+
+    /* CORS Configuration */
+    public static final String CORS_ALLOWED_ORIGIN = "http://localhost:5500";
+    public static final String CORS_EXPOSED_HEADER = "Set-Cookie";
 }
