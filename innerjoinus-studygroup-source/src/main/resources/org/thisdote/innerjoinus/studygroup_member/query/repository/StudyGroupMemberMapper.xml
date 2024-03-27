@@ -23,6 +23,16 @@
           FROM STUDYGROUP_MEMBER A
     </select>
 
+    <select id="selectStudyGroupById" resultMap="memberResultMap">
+        SELECT
+               A.STUDYGROUP_MEMBER_ID
+             , A.STUDYGROUP_ID
+             , A.STUDYGROUP_ROLE
+             , A.STUDYGROUP_REGIST_DATE
+             , A.USER_CODE
+          FROM STUDYGROUP_MEMBER A
+         WHERE STUDYGROUP_ID = {studygroupId};
+    </select>
     <select id="selectAllStudyGroupLeader" resultMap="memberResultMap">
         SELECT
                A.STUDYGROUP_MEMBER_ID

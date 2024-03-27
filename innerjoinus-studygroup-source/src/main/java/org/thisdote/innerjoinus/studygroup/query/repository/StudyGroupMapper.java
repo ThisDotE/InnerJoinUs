@@ -19,4 +19,5 @@ public interface StudyGroupMapper {
     List<StudyGroupDTO> selectStudyGroupsByType(int studyGroupType);
 
     List<StudyGroupDTO> selectAllStudyGroupByUser(Integer userCode);
+
 }
