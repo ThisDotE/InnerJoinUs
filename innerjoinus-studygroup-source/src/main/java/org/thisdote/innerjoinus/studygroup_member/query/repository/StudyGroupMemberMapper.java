@@ -13,4 +13,6 @@ public interface StudyGroupMemberMapper {
     List<StudyGroupMemberDTO> selectAllStudyGroupLeader();
 
     List<StudyGroupMemberDTO> selectAllStudyGroupFollower();
+
+    List<StudyGroupMemberDTO> selectStudyGroupMemberById();
 }
