@@ -58,7 +58,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         refreshTokenRepository.save(tokenEntity);
 
         response.addCookie(createCookie(OAUTH_RESULT_TOKEN_KEY, token));
-        response.sendRedirect(OAUTH_RESULT_REDIRECT_URI);
+//        response.sendRedirect(OAUTH_RESULT_REDIRECT_URI);
+        response.sendRedirect("http://localhost:5173/login");
     }
 
     private Cookie createCookie(String authorization, String token) {
