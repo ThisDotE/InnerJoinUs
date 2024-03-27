@@ -1,6 +1,7 @@
 package org.thisdote.innerjoinus.user.inquiry.query.controller;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,10 @@ public class QueryInquiryController {
 
     @GetMapping("/inquiry/{inquiryId}")
     public ResponseEntity<ResponseQueryInquiry> selectInquiryById(@PathVariable("inquiryId") Integer inquiryId) {
-
-        return null;
+        InquiryDTO inquiryDTO = queryInquiryService.selectInquiryByInquiryId(inquiryId);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ResponseQueryInquiry responseQueryInquiry = mapper.map(inquiryDTO, ResponseQueryInquiry.class);
+        return ResponseEntity.status(HttpStatus.OK).body(responseQueryInquiry);
     }
 
     @GetMapping("/inquiry/user/{userCode}")

@@ -49,4 +49,11 @@ public class QueryInquiryServiceImpl implements QueryInquiryService{
 
         return inquiryDTOList;
     }
+
+    @Override
+    public InquiryDTO selectInquiryByInquiryId(Integer inquiryId) {
+        QueryInquiryEntity inquiryEntity = queryInquiryRepository.findById(inquiryId).get();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        return mapper.map(inquiryEntity, InquiryDTO.class);
+    }
 }
