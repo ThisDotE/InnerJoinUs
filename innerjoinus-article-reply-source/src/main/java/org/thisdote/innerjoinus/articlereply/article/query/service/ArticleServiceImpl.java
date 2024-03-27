@@ -10,6 +10,7 @@ import org.thisdote.innerjoinus.articlereply.article.query.aggregate.ArticleQuer
 import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleMapper;
 import org.thisdote.innerjoinus.articlereply.article.query.repository.ArticleQueryRepository;
 import org.thisdote.innerjoinus.articlereply.client.UserClient;
+import org.thisdote.innerjoinus.articlereply.reply.query.service.ReplyQueryService;
 
 
 import java.util.*;
@@ -21,16 +22,19 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleQueryRepository articleQueryRepository;
     private final ModelMapper mapper;
     private final UserClient userClient;
+    private final ReplyQueryService replyQueryService;
 
     @Autowired
     public ArticleServiceImpl(SqlSessionTemplate sqlSession,
                               ArticleQueryRepository articleQueryRepository,
                               ModelMapper mapper,
-                              UserClient userClient) {
+                              UserClient userClient,
+                              ReplyQueryService replyQueryService) {
         this.sqlSession = sqlSession;
         this.articleQueryRepository = articleQueryRepository;
         this.mapper = mapper;
         this.userClient = userClient;
+        this.replyQueryService = replyQueryService;
     }
 
     @Override
@@ -74,6 +78,7 @@ public class ArticleServiceImpl implements ArticleService {
                     .filter(articleDTO -> articleDTO.getArticleCategory() == finalCategory)
                     .sorted(Comparator.comparingInt(ArticleDTO::getArticleViewCount).reversed())
                     .peek(articleDTO -> articleDTO.setUserList(userClient.getAllUser(articleDTO.getUserCode())))
+                    .peek(articleDTO -> articleDTO.setReplyDTOList(replyQueryService.selectRepliesByArticleId(articleDTO.getArticleId())))
                     .collect(Collectors.toList());
             sortedArticles.forEach(System.out::println);
             if (!sortedArticles.isEmpty()) {
