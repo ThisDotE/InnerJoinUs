@@ -39,7 +39,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
-    @GetMapping("/article/{articleId}")
+    @GetMapping("/article/without-info/{articleId}")
     public ResponseEntity<ResponseArticle> selectArticleByArticleId(@PathVariable("articleId") int articleId) {
         ArticleDTO articleDTO = articleService.selectArticleByArticleId(articleId);
 
@@ -102,6 +102,13 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
+    @GetMapping("/main")
+    private ResponseEntity<Map<Integer, List<ArticleDTO>>> popularArticle(){
+        Map<Integer, List<ArticleDTO>> articleDTO = articleService.popularArticle();
+        return ResponseEntity.status(HttpStatus.OK).body(articleDTO);
+    }
+
+
     private List<ResponseArticle> articleDTOToTesponseOrder(List<ArticleDTO> articleDTOList) {
         List<ResponseArticle> responseArticles = new ArrayList<>();
         for (ArticleDTO articleDTO : articleDTOList) {
@@ -154,5 +161,4 @@ public class ArticleController {
         }
         return responseArticles;
     }
-
 }

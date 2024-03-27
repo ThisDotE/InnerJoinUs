@@ -7,6 +7,6 @@ import org.thisdote.innerjoinus.studygroup_member.command.vo.ResponseUser;
 
 @FeignClient(name="INNERJOINUS-USER", url = "localhost:8000")
 public interface UserClient {
-    @GetMapping("/user/{userCode}")
+    @GetMapping("/user/users/{userCode}")
     ResponseUser getAllUser(@PathVariable("userCode") Integer userCode);
 }

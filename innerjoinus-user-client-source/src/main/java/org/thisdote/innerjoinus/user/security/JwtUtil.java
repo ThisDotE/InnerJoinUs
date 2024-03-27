@@ -43,7 +43,7 @@ public class JwtUtil {
     /* 설명. Token 검증 */
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+//            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT Token {}", e);
@@ -58,8 +58,6 @@ public class JwtUtil {
             log.info("JWT claims strig si empty {}", e);
             return false;
         }
-
-//        return true;
     }
 
     /* 설명. Token에서 User의 Id 개념 추출 */

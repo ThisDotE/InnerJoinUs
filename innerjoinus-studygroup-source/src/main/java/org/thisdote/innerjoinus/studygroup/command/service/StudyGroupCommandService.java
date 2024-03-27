@@ -5,9 +5,9 @@ import org.thisdote.innerjoinus.studygroup.dto.StudyGroupCommandDTO;
 public interface StudyGroupCommandService {
 
 
-    void updateStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO);
+    StudyGroupCommandDTO updateStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO);
 
-    void removeStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO);
+    StudyGroupCommandDTO removeStudyGroup(StudyGroupCommandDTO studyGroupCommandDTO);
 
     StudyGroupCommandDTO insertStudygroup(StudyGroupCommandDTO studyGroupCommandDTO);
 }

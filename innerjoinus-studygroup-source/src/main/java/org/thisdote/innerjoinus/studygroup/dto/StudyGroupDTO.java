@@ -1,8 +1,10 @@
 package org.thisdote.innerjoinus.studygroup.dto;
 
 import lombok.*;
+import org.thisdote.innerjoinus.studygroup_member.dto.StudyGroupMemberDTO;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,5 +21,6 @@ public class StudyGroupDTO {
     private Date studyGroupStudyTime;
     private String studyGroupContent;
     private int studyGroupDeleteStatus;
+    private List<StudyGroupMemberDTO> studyGroupMemberDTOList;
 
 }
