@@ -8,4 +8,6 @@ public interface QueryInquiryService {
     List<InquiryDTO> selectAllInquiry();
 
     List<InquiryDTO> selectInquiriesByUser(Integer userCode);
+
+    InquiryDTO selectInquiryByInquiryId(Integer inquiryId);
 }
