@@ -11,6 +11,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.thisdote.authclient.dto.CustomOAuth2User;
 import org.thisdote.authclient.jwt.JwtUtil;
+import org.thisdote.authclient.repository.RefreshTokenEntity;
+import org.thisdote.authclient.repository.RefreshTokenRepository;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -23,10 +25,15 @@ import static org.thisdote.authclient.common.Constant.OAUTH_RESULT_TOKEN_KEY;
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JwtUtil jwtUtil;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
-    public LoginSuccessHandler(JwtUtil jwtUtil) {
+    public LoginSuccessHandler(
+            JwtUtil jwtUtil,
+            RefreshTokenRepository refreshTokenRepository
+    ) {
         this.jwtUtil = jwtUtil;
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     @Override
@@ -44,13 +51,11 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
-        /* TODO
-         *  1. accessToken, refreshToken 생성
-         *  2. accessToken은 user에게 반환
-         *  3. refreshToken은 redis 사용하여 accessToken(key): refreshToken(value) 형태로 저장
-        * */
-
         String token = jwtUtil.createJwt(loginCode, role);
+        String refreshToken = jwtUtil.createRefreshToken(token);
+        RefreshTokenEntity tokenEntity = new RefreshTokenEntity(loginCode, token, refreshToken);
+
+        refreshTokenRepository.save(tokenEntity);
 
         response.addCookie(createCookie(OAUTH_RESULT_TOKEN_KEY, token));
         response.sendRedirect(OAUTH_RESULT_REDIRECT_URI);

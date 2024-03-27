@@ -1,5 +1,6 @@
 package org.thisdote.authclient.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,19 @@ public class JwtUtil {
 
     private final SecretKey secretKey;
     private final long expirationTime;
+    private final long reFreshTokenExpirationTime;
 
     public JwtUtil(
             @Value("${token.secret}") String secret,
-            @Value("${token.expiration_time}") long expirationTime
+            @Value("${token.expiration_time}") long expirationTime,
+            @Value("${spring.data.redis.expiration_time}") long reFreshTokenExpirationTime
     ) {
         byte[] key = secret.getBytes(StandardCharsets.UTF_8);
         String algorithm = Jwts.SIG.HS256.key().build().getAlgorithm();
 
         this.secretKey = new SecretKeySpec(key, algorithm);
         this.expirationTime = expirationTime;
+        this.reFreshTokenExpirationTime = reFreshTokenExpirationTime;
     }
 
     public String getLoginCode(String token) {
@@ -67,6 +71,16 @@ public class JwtUtil {
                 .claim(JWT_ATTR_ROLE, role)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(secretKey)
+                .compact();
+    }
+
+    public String createRefreshToken(String accessToken) {
+        return Jwts
+                .builder()
+                .claim("accessToken", accessToken)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + reFreshTokenExpirationTime))
                 .signWith(secretKey)
                 .compact();
     }

@@ -57,6 +57,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = authorization;
 
+        /* TODO
+         *  1. accessToken 만료 시 redis에 저장된 refreshToken 조회
+         *  2. refreshToken 만료 확인
+         *  3. refreshToken에서 loginCode 추출 후 해당 loginCode와 role을 사용하여 accessToken 재발행
+         *  4. accessToken 발행 후 refreshToken도 재발행
+         *  5. accessToken 반환, refreshToken redis에 저장
+        * */
+
         // 토큰 만료 시간 확인
         if (jwtUtil.isExpired(token)) {
             log.info("token expired...");
