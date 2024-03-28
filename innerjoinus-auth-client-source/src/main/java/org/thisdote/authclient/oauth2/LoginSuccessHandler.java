@@ -18,8 +18,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
-import static org.thisdote.authclient.common.Constant.OAUTH_RESULT_REDIRECT_URI;
-import static org.thisdote.authclient.common.Constant.OAUTH_RESULT_TOKEN_KEY;
+import static org.thisdote.authclient.common.Constant.*;
 
 @Component
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -58,8 +57,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         refreshTokenRepository.save(tokenEntity);
 
         response.addCookie(createCookie(OAUTH_RESULT_TOKEN_KEY, token));
+        response.addCookie(createCookie(OAUTH_RESULT_LOGIN_CODE_KEY, loginCode));
 //        response.sendRedirect(OAUTH_RESULT_REDIRECT_URI);
-        response.sendRedirect("http://localhost:5173/login");
+        response.sendRedirect(OAUTH_RESULT_REDIRECT_URI);
     }
 
     private Cookie createCookie(String authorization, String token) {
@@ -68,7 +68,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         cookie.setMaxAge(60*60*60);
 //        cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setHttpOnly(true);
+//        cookie.setHttpOnly(true);
 
         return cookie;
     }

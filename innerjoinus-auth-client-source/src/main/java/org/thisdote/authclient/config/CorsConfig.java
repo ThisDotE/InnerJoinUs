@@ -4,8 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static org.thisdote.authclient.common.Constant.CORS_ALLOWED_ORIGIN;
-import static org.thisdote.authclient.common.Constant.CORS_EXPOSED_HEADER;
+import static org.thisdote.authclient.common.Constant.*;
 
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
@@ -13,7 +12,8 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .exposedHeaders(CORS_EXPOSED_HEADER)
-                .allowedOrigins(CORS_ALLOWED_ORIGIN);
+                .allowCredentials(true)
+                .exposedHeaders(OAUTH_RESULT_TOKEN_KEY, CORS_EXPOSED_HEADER_SET_COOKIE, CORS_EXPOSED_HEADER_COOKIE)
+                .allowedOrigins("*");
     }
 }

@@ -17,7 +17,9 @@ public class Constant {
      *  front 작업 후 redirect uri 변경 필요... (OAUTH_RESULT_REDIRECT_URI)
     * */
     public static final String OAUTH_RESULT_TOKEN_KEY = "Authorization";
-    public static final String OAUTH_RESULT_REDIRECT_URI = "http://localhost:5500/oauth/index.html";
+    public static final String OAUTH_RESULT_LOGIN_CODE_KEY = "LoginCode";
+//    public static final String OAUTH_RESULT_REDIRECT_URI = "http://localhost:5500/oauth/index.html";
+    public static final String OAUTH_RESULT_REDIRECT_URI = "http://localhost:5173/login";
 
     /* JWT attribute */
     public static final String JWT_ATTR_LOGIN_CODE = "loginCode";
@@ -25,5 +27,6 @@ public class Constant {
 
     /* CORS Configuration */
     public static final String CORS_ALLOWED_ORIGIN = "http://localhost:5500";
-    public static final String CORS_EXPOSED_HEADER = "Set-Cookie";
+    public static final String CORS_EXPOSED_HEADER_SET_COOKIE = "Set-Cookie";
+    public static final String CORS_EXPOSED_HEADER_COOKIE = "Cookie";
 }

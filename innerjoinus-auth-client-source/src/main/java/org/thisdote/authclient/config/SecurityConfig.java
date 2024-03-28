@@ -20,8 +20,7 @@ import org.thisdote.authclient.service.OAuth2UserService;
 import java.util.Collections;
 import java.util.List;
 
-import static org.thisdote.authclient.common.Constant.CORS_EXPOSED_HEADER;
-import static org.thisdote.authclient.common.Constant.OAUTH_RESULT_TOKEN_KEY;
+import static org.thisdote.authclient.common.Constant.*;
 
 @Configuration
 @EnableWebSecurity
@@ -51,7 +50,7 @@ public class SecurityConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
                 List<String> allowStringList = Collections.singletonList("*");
-                List<String> exposedHeaders = List.of(OAUTH_RESULT_TOKEN_KEY, CORS_EXPOSED_HEADER);
+                List<String> exposedHeaders = List.of(OAUTH_RESULT_TOKEN_KEY, CORS_EXPOSED_HEADER_SET_COOKIE, CORS_EXPOSED_HEADER_COOKIE);
                 CorsConfiguration configuration = new CorsConfiguration();
 
                 configuration.setAllowedOriginPatterns(allowStringList);
