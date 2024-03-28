@@ -3,9 +3,6 @@ package org.thisdote.innerjoinus.user.query.service;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thisdote.innerjoinus.user.client.ArticleReplyServiceClient;
@@ -20,10 +17,8 @@ import org.thisdote.innerjoinus.user.vo.ResponseArticle;
 import org.thisdote.innerjoinus.user.vo.ResponseReply;
 import org.thisdote.innerjoinus.user.vo.ResponseStudyGroup;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserQueryServiceImpl implements UserQueryService {
@@ -88,10 +83,6 @@ public class UserQueryServiceImpl implements UserQueryService {
     public UserDTO getUserDetailsByEmail(String email) {
         UserEntity userEntity = userRepository.findByUserEmail(email);
 
-        if (userEntity == null) {
-            throw new UsernameNotFoundException(email);
-        }
-
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
@@ -125,21 +116,21 @@ public class UserQueryServiceImpl implements UserQueryService {
         return userMapper.selectUserByLoginCode(loginCode);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUserId(username);
-
-        if (userEntity == null) {
-            throw new UsernameNotFoundException(username + ": not found");
-        }
-
-        return new User(
-                userEntity.getUserId(),
-                userEntity.getUserPassword(),
-                true,
-                true,
-                true,
-                true,
-                new ArrayList<>());
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        UserEntity userEntity = userRepository.findByUserId(username);
+//
+//        if (userEntity == null) {
+//            throw new UsernameNotFoundException(username + ": not found");
+//        }
+//
+//        return new User(
+//                userEntity.getUserId(),
+//                userEntity.getUserPassword(),
+//                true,
+//                true,
+//                true,
+//                true,
+//                new ArrayList<>());
+//    }
 }
