@@ -60,6 +60,18 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
+    @GetMapping("/article/study")
+    public ResponseEntity<List<ResponseAllArticle>> selectAllStudyArticle(){
+        List<ArticleDTO> articleDTOList = articleService.selectAllStudyArticle();
+        List<ResponseAllArticle> returnValue = new ArrayList<>();
+
+        if (articleDTOList != null) {
+            returnValue = articleDTOList.stream().map(ArticleDTO -> mapper.map(ArticleDTO, ResponseAllArticle.class)).toList();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
+
     @GetMapping("/article/user/{user_code}")
     public ResponseEntity<List<ResponseArticleByUser>> selectArticleByUser(@PathVariable("user_code") int user_code){
         List<ArticleDTO> articleDTOList = articleService.selectArticleByUser(user_code);

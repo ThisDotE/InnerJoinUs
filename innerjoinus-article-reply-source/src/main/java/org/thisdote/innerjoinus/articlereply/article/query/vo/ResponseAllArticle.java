@@ -1,14 +1,12 @@
-package org.thisdote.innerjoinus.articlereply.article.command.vo;
+package org.thisdote.innerjoinus.articlereply.article.query.vo;
 
 import lombok.Data;
-import org.thisdote.innerjoinus.articlereply.article.query.vo.ResponseArticle;
-import org.thisdote.innerjoinus.articlereply.reply.dto.ReplyDTO;
+import org.thisdote.innerjoinus.articlereply.article.command.vo.ResponseUser;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
-public class ResponseArticleUser {
+public class ResponseAllArticle {
     private int articleId;
     private String articleTitle;
     private String articleContent;
@@ -27,7 +25,6 @@ public class ResponseArticleUser {
     private int studygroupCurrentMemberCount;
     private int studygroupPendingMemberCount;
     private int articleDeleteStatus;
-//    private List<ResponseUser> userList;
+    //    private List<ResponseUser> userList;
     private ResponseUser userList;
-    private List<ReplyDTO> replyDTOList;
 }

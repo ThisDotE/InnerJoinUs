@@ -94,7 +94,9 @@ public class CommandArticleServiceImpl implements CommandArticleService {
         ResponseUser userList = userClient.getAllUser(articleDTO.getUserCode());
         articleDTO.setUserList(userList);
         List<ReplyDTO> replyDTOList = replyQueryService.selectRepliesByArticleId(articleId);
+
         articleDTO.setReplyDTOList(replyDTOList);
+        articleDTO.setArticleReplyCount(replyDTOList.size());
         return articleDTO;
     }
 }
