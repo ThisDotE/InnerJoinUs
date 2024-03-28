@@ -43,6 +43,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDTO> selectAllStudyArticle() {
+        List<ArticleDTO> articleDTOList = sqlSession.getMapper(ArticleMapper.class).selectAllStudyArticle()
+                .stream()
+                .peek(articleDTO -> articleDTO.setUserList(userClient.getAllUser(articleDTO.getUserCode())))
+                .collect(Collectors.toList());
+
+        return articleDTOList;
+    }
+
+    @Override
     public List<ArticleDTO> selectAllQuestionArticle() {
         return sqlSession.getMapper(ArticleMapper.class).selectAllQuestionArticle();
     }

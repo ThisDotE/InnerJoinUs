@@ -13,4 +13,6 @@ public interface ArticleService {
     List<ArticleDTO> selectArticleByCriteria(Map<String, Object> criteria);
     ArticleDTO selectArticleByArticleId(int articleId);
     Map<Integer, List<ArticleDTO>> popularArticle();
+
+    List<ArticleDTO> selectAllStudyArticle();
 }
