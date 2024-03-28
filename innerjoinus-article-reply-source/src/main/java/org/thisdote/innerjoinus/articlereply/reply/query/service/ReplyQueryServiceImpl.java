@@ -13,6 +13,8 @@ import org.thisdote.innerjoinus.articlereply.reply.query.repository.ReplyQueryRe
 import org.thisdote.innerjoinus.articlereply.article.command.vo.ResponseUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -61,6 +63,15 @@ public class ReplyQueryServiceImpl implements ReplyQueryService{
             replyDTO.setResponseUser(responseUser);
             replyDTOList.add(replyDTO);
         }
+
+        Collections.sort(replyDTOList, new Comparator<ReplyDTO>() {
+            @Override
+            public int compare(ReplyDTO o1, ReplyDTO o2) {
+                // 내림차순 정렬을 위해 o2와 o1의 순서를 바꿈
+                return o2.getReplyCreatedDate().compareTo(o1.getReplyCreatedDate());
+            }
+        });
+
         return replyDTOList;
     }
 

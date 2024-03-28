@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class ResponseArticleUser {
+    private int articleId;
     private String articleTitle;
     private String articleContent;
     private int articleCategory;
